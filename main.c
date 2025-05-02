@@ -12,3 +12,14 @@ void stampaSerre(SerraDati serre[], int n) {
     }
     printf("\n");
 }
+void salvaLog(SerraDati serre[], int n) {
+    printf("Salva il log delle attivita' delle serre.\n");
+    printf("Inserisci il nome del file in cui vuoi salvare il log: ");
+    char nomeFile[100];
+    scanf("%99s", nomeFile);
+
+    FILE* fileSalvataggio = fopen(nomeFile, "w");
+    if (!fileSalvataggio) {
+        printf("Errore: Impossibile creare il file di salvataggio.\n");
+        return;
+    }
