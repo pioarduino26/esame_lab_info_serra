@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "ausiliari/sensoristica.h"
 #include <string.h>
-
+//stampo le serre in base alla tipologia di piante
 void stampaSerre(SerraDati serre[], int n) {
     printf("\nStato delle serre:\n");
     for (int i = 0; i < n; i++) {
@@ -12,6 +12,7 @@ void stampaSerre(SerraDati serre[], int n) {
     }
     printf("\n");
 }
+// creo il file per il salvataggio dei dati serra
 void salvaLog(SerraDati serre[], int n) {
     printf("Salva il log delle attivita' delle serre.\n");
     printf("Inserisci il nome del file in cui vuoi salvare il log: ");
