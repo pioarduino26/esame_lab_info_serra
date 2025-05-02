@@ -1,12 +1,12 @@
 #ifndef SENSORISTICA_H
 #define SENSORISTICA_H
-
+// uso la libreria "time.h"
 #include <time.h>
 
 // Definizione della struttura Pianta
 typedef struct {
-    char nome[20];
-    int umidita_min;
+    char nome[20]; // dichiaro un array di caratteri di 20 elementi
+    int umidita_min; 
     int umidita_max;
     int resistenza_insetticida; // 1 = Resistente, 0 = Debole
 } Pianta;
