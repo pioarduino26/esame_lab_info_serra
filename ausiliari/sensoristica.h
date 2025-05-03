@@ -11,7 +11,7 @@ typedef struct {
     int resistenza_insetticida; // 1 = Resistente, 0 = Debole
 } Pianta;
 
-// Definizione della struttura che contiene i dati della serra
+// Definizione della struttura che contiene i dati della serra (temperatura, umidità....)
 typedef struct {
     int temperatura;
     int umidita;

@@ -25,3 +25,29 @@ void salvaLog(SerraDati serre[], int n) {
         printf("Errore: Impossibile creare il file di salvataggio.\n");
         return;
     }
+// Genera e salva i dati delle serre nel file specificato
+    // Definizione della struttura per la lista concatenata
+    typedef struct LogNode {
+        char logData[256];
+        struct LogNode* next;
+    } LogNode;
+// Creazione della lista concatenata temporanea
+    LogNode* head = NULL;
+    LogNode* tail = NULL;
+    for (int i = 0; i < n; i++) {
+        leggiSensori(&serre[i]);  // Aggiorna i dati della serra
+
+        fprintf(fileSalvataggio, "Serra %d: %s\n", i + 1, serre[i].pianta.nome);
+        fprintf(fileSalvataggio, "  Temperatura: %d°C\n", serre[i].temperatura);
+        fprintf(fileSalvataggio, "  Umidita': %d%%\n", serre[i].umidita);
+        fprintf(fileSalvataggio, "  Luce: %d\n", serre[i].luce);
+        fprintf(fileSalvataggio, "  Umidita' terreno: %d\n", serre[i].umidita_terreno);
+        fprintf(fileSalvataggio, "  Livello acqua: %d\n", serre[i].livello_acqua);
+        fprintf(fileSalvataggio, "  Orario: %02d:%02d\n", serre[i].orario.tm_hour, serre[i].orario.tm_min);
+        fprintf(fileSalvataggio, "  Stagione: %s\n", determinaStagione(serre[i].orario.tm_mon + 1));
+        fprintf(fileSalvataggio, "-----------------------------\n");
+        LogNode* newNode = (LogNode*)malloc(sizeof(LogNode));
+        if (newNode == NULL) {
+            printf("Errore: Memoria insufficiente per creare il nodo.\n");
+            break;
+        }
