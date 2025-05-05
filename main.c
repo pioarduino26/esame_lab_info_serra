@@ -51,3 +51,33 @@ void salvaLog(SerraDati serre[], int n) {
             printf("Errore: Memoria insufficiente per creare il nodo.\n");
             break;
         }
+
+
+        snprintf(newNode->logData, sizeof(newNode->logData),
+                 "Serra %d: %s\n  Temperatura: %d°C\n  Umidita': %d%%\n  Luce: %d\n  Umidita' terreno: %d\n  Livello acqua: %d\n  Orario: %02d:%02d\n  Stagione: %s\n-----------------------------\n",
+                 i + 1, serre[i].pianta.nome, serre[i].temperatura, serre[i].umidita, serre[i].luce,
+                 serre[i].umidita_terreno, serre[i].livello_acqua, serre[i].orario.tm_hour,
+                 serre[i].orario.tm_min, determinaStagione(serre[i].orario.tm_mon + 1));
+
+        newNode->next = NULL;
+
+        if (head == NULL) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    // Salvataggio dei dati dalla lista concatenata nel file
+    LogNode* current = head;
+    while (current != NULL) {
+        fprintf(fileSalvataggio, "%s", current->logData);
+        LogNode* temp = current;
+        current = current->next;
+        free(temp); // Liberazione della memoria del nodo
+    }
+
+    fclose(fileSalvataggio);
+    printf("Log salvato con successo in %s\n", nomeFile);
+}
