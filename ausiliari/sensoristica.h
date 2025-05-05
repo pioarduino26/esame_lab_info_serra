@@ -21,3 +21,4 @@ typedef struct {
     struct tm orario;
     Pianta pianta;
 } SerraDati;
+void selectionSort(SerraDati serre[], int n);
