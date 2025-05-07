@@ -2,7 +2,7 @@
 #define SENSORISTICA_H
 // uso la libreria "time.h"
 #include <time.h>
-
+#include <stdio.h>
 // Definizione della struttura Pianta
 typedef struct {
     char nome[20]; // dichiaro un array di caratteri di 20 elementi
