@@ -52,9 +52,13 @@ void salvaLog(SerraDati serre[], int n) {
             break;
         }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 
         snprintf(newNode->logData, sizeof(newNode->logData),
+=======
+ snprintf(newNode->logData, sizeof(newNode->logData),
+>>>>>>> Stashed changes
 =======
  snprintf(newNode->logData, sizeof(newNode->logData),
 >>>>>>> Stashed changes
@@ -73,6 +77,7 @@ void salvaLog(SerraDati serre[], int n) {
         }
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     // Salvataggio dei dati dalla lista concatenata nel file
     LogNode* current = head;
@@ -86,6 +91,9 @@ void salvaLog(SerraDati serre[], int n) {
     fclose(fileSalvataggio);
     printf("Log salvato con successo in %s\n", nomeFile);
 }
+=======
+// aggiungi ricorsione
+>>>>>>> Stashed changes
 =======
 // aggiungi ricorsione
 >>>>>>> Stashed changes
