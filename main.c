@@ -76,8 +76,7 @@ void salvaLog(SerraDati serre[], int n) {
             tail = newNode;
         }
     }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 
     // Salvataggio dei dati dalla lista concatenata nel file
     LogNode* current = head;
@@ -91,9 +90,23 @@ void salvaLog(SerraDati serre[], int n) {
     fclose(fileSalvataggio);
     printf("Log salvato con successo in %s\n", nomeFile);
 }
-=======
-// aggiungi ricorsione
->>>>>>> Stashed changes
-=======
-// aggiungi ricorsione
->>>>>>> Stashed changes
+// aggiung la ricorsione
+void salvaLogRicorsivo(SerraDati serre[], int n) {
+    char nomeFile[100];
+    printf("Inserisci il nome del file per lo storico: ");
+    scanf("%99s", nomeFile);
+
+    FILE* fp = fopen(nomeFile, "w");
+    if (!fp) {
+        perror("Errore apertura file");
+        return;
+    }
+
+    // Avvia la scrittura ricorsiva dallo 0
+    salvaStoricoRec(serre, n, 0, fp);
+
+    fclose(fp);
+    printf("Storico salvato con successo in %s\n", nomeFile);
+}
+
+
