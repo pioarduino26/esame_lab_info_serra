@@ -90,7 +90,7 @@ void salvaLog(SerraDati serre[], int n) {
     fclose(fileSalvataggio);
     printf("Log salvato con successo in %s\n", nomeFile);
 }
-// aggiung la ricorsione
+// aggiungo la ricorsione
 void salvaLogRicorsivo(SerraDati serre[], int n) {
     char nomeFile[100];
     printf("Inserisci il nome del file per lo storico: ");
