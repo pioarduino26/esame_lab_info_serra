@@ -71,3 +71,18 @@ void irrigazioneInsetticida(SerraDati serre[], int *n) {
         }
     }
 }
+// funzione per strappare e sostituire piante
+void strappaPiantaESostituisci(SerraDati *serra) {
+    // Salvo i dati originali della specie
+    Pianta specie = serra->pianta;
+
+    // Simulo l’operazione meccanica di “strappare” la pianta
+    printf("Strappo la pianta '%s' che non ha resistito all'insetticida...\n", specie.nome);
+    // qui potresti aggiungere il codice di attivazione dello strappa-piante
+
+    printf("Pianta strappata con successo.\n");
+
+    // Reimpianto una nuova pianta della stessa specie
+    serra->pianta = specie;
+    printf("Reimpiantata una nuova pianta di specie '%s'.\n", serra->pianta.nome);
+}
