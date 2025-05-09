@@ -21,4 +21,5 @@ typedef struct {
     struct tm orario;
     Pianta pianta;
 } SerraDati;
+void leggiSensori(SerraDati *dati);
 void selectionSort(SerraDati serre[], int n);
