@@ -109,4 +109,16 @@ void salvaLogRicorsivo(SerraDati serre[], int n) {
     printf("Storico salvato con successo in %s\n", nomeFile);
 }
 
+int main() {
+    SerraDati serre[6] = {
+        {0, 0, 0, 0, 0, {0}, {"Basilico", 800, 1000, 1}},
+        {0, 0, 0, 0, 0, {0}, {"Peperoncino", 750, 950, 1}},
+        {0, 0, 0, 0, 0, {0}, {"Cipolla", 720, 900, 1}},
+        {0, 0, 0, 0, 0, {0}, {"Margherita", 700, 920, 0}},
+        {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 1}},
+        {0, 0, 0, 0, 0, {0}, {"Dente di Leone", 710, 930, 0}}
+    };
 
+    srand(time(NULL));
+    int scelta_categoria, scelta_serra, conteggio;
+    char uscita[3];
