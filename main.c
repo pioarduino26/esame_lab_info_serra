@@ -51,17 +51,15 @@ void salvaLog(SerraDati serre[], int n) {
             printf("Errore: Memoria insufficiente per creare il nodo.\n");
             break;
         }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 
 
         snprintf(newNode->logData, sizeof(newNode->logData),
-=======
+
  snprintf(newNode->logData, sizeof(newNode->logData),
->>>>>>> Stashed changes
-=======
+
  snprintf(newNode->logData, sizeof(newNode->logData),
->>>>>>> Stashed changes
+
                  "Serra %d: %s\n  Temperatura: %d°C\n  Umidita': %d%%\n  Luce: %d\n  Umidita' terreno: %d\n  Livello acqua: %d\n  Orario: %02d:%02d\n  Stagione: %s\n-----------------------------\n",
                  i + 1, serre[i].pianta.nome, serre[i].temperatura, serre[i].umidita, serre[i].luce,
                  serre[i].umidita_terreno, serre[i].livello_acqua, serre[i].orario.tm_hour,
