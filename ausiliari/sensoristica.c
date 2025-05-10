@@ -78,11 +78,25 @@ void strappaPiantaESostituisci(SerraDati *serra) {
 
     // Simulo l’operazione meccanica di “strappare” la pianta
     printf("Strappo la pianta '%s' che non ha resistito all'insetticida...\n", specie.nome);
-    // qui potresti aggiungere il codice di attivazione dello strappa-piante
-
     printf("Pianta strappata con successo.\n");
 
     // Reimpianto una nuova pianta della stessa specie
     serra->pianta = specie;
     printf("Reimpiantata una nuova pianta di specie '%s'.\n", serra->pianta.nome);
+}
+void leggiSensori(SerraDati *dati) {
+    time_t t = time(NULL);
+    dati->orario = *localtime(&t);
+    dati->temperatura = rand() % 30 + 15; // 15-45 C
+    dati->umidita = rand() % 40 + 30;
+    dati->luce = rand() % 512;
+    dati->umidita_terreno = rand() % (MAX_VALUE - MIN_VALUE) + MIN_VALUE;
+    dati->livello_acqua = rand() % 500;
+}
+
+const char* determinaStagione(int mese) {
+    if (mese >= 3 && mese <= 5) return "Primavera";
+    if (mese >= 6 && mese <= 8) return "Estate";
+    if (mese >= 9 && mese <= 11) return "Autunno";
+    return "Inverno";
 }
