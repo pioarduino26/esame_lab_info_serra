@@ -100,3 +100,19 @@ const char* determinaStagione(int mese) {
     if (mese >= 9 && mese <= 11) return "Autunno";
     return "Inverno";
 }
+void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario) {
+    const char* stagione = determinaStagione(orario.tm_mon + 1);
+    int soglia = pianta.umidita_min;
+
+    if (strcmp(stagione, "Estate") == 0) {
+        soglia += 50; // In estate, il suolo perde umidit  pi  rapidamente
+    } else if (strcmp(stagione, "Inverno") == 0) {
+        soglia -= 30; // In inverno, il suolo trattiene pi  umidit 
+    }
+
+    if (umidita_terreno >= soglia && umidita_terreno <= pianta.umidita_max) {
+        printf("[%s] Motore acqua: SPENTO\n", pianta.nome);
+    } else {
+        printf("[%s] Motore acqua: ACCESO (Stagione: %s)\n", pianta.nome, stagione);
+    }
+}
