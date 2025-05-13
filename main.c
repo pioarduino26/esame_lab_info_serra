@@ -120,3 +120,14 @@ int main() {
     srand(time(NULL));
     int scelta_categoria, scelta_serra, conteggio;
     char uscita[3];
+while (1) {
+        printf("\n Seleziona la categoria di serre:\n");
+        printf("1) Piante Commestibili (Basilico, Peperoncino, Cipolla)\n");
+        printf("2) Piante da Abbellimento (Margherite, Tulipani, Dente di Leone)\n");
+        printf("3) Ordinare serre per umidita'\n"); //selection sort
+
+        printf("4) Applicare insetticida\n");
+        printf("6) Salva il log delle attivita' delle serre\n");
+        printf("5) Esci\n");
+        printf("Scelta: ");
+        scanf("%d", &scelta_categoria);
