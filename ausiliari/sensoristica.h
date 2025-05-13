@@ -22,6 +22,7 @@ typedef struct {
     Pianta pianta;
 } SerraDati;
 void leggiSensori(SerraDati *dati);
+void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario);
 void selectionSort(SerraDati serre[], int n);
 void irrigazioneInsetticida(SerraDati serre[], int *n);
 void strappaPiantaESostituisci(SerraDati *serra);
