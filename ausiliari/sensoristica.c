@@ -116,3 +116,19 @@ void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario) 
         printf("[%s] Motore acqua: ACCESO (Stagione: %s)\n", pianta.nome, stagione);
     }
 }
+
+void controllaVentolaRaffreddamento(int temperatura, struct tm orario) {
+    int velocita;
+    if (orario.tm_hour >= 6 && orario.tm_hour <= 18) {
+        // Durante il giorno, la ventola gira pi  velocemente
+        velocita = (temperatura - 15) * 12;
+    } else {
+        // Durante la notte, la ventola rallenta
+        velocita = (temperatura - 15) * 6;
+    }
+
+    if (velocita > 255) velocita = 255;
+    if (velocita < 50) velocita = 20;
+
+    printf("Ventola raffreddamento: %d (Orario: %02d:%02d)\n", velocita, orario.tm_hour, orario.tm_min);
+}
