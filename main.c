@@ -131,3 +131,45 @@ while (1) {
         printf("5) Esci\n");
         printf("Scelta: ");
         scanf("%d", &scelta_categoria);
+	
+	if (scelta_categoria == 5) {
+            printf("Uscita dal programma.\n");
+            return 0;
+        }
+
+        if (scelta_categoria == 6) {
+            salvaLog(serre, 6);  // Salva il log delle serre
+            continue;
+        }
+
+        if (scelta_categoria == 3) {
+            // Aggiorna i dati delle serre prima dell'ordinamento
+            for (int i = 0; i < 6; i++) {
+                leggiSensori(&serre[i]);
+            }
+
+            printf("\n--- Prima dell'ordinamento ---\n");
+            stampaSerre(serre, 6); // Mostra lo stato prima dell'ordinamento
+          //  stampaSerre(serre, 6);
+
+            selectionSort(serre, 6); // Ordina le serre
+          //  selectionSort(serre, 6);
+
+            printf("\n--- Dopo l'ordinamento ---\n");
+            stampaSerre(serre, 6); // Mostra lo stato dopo l'ordinamento
+           // stampaSerre(serre, 6);
+            continue;
+        }
+
+       if (scelta_categoria == 4) {
+    int numero_serre = 6;
+    irrigazioneInsetticida(serre, &numero_serre);
+    continue;
+}
+
+
+        if (scelta_categoria < 1 || scelta_categoria > 2) {
+            printf("Scelta non valida! Riprova.\n");
+            continue;
+        }
+
