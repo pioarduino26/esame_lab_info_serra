@@ -28,4 +28,5 @@ void selectionSort(SerraDati serre[], int n);
 void irrigazioneInsetticida(SerraDati serre[], int *n);
 void strappaPiantaESostituisci(SerraDati *serra);
 void salvaStoricoRec(SerraDati serre[], int n, int index, FILE* fp);
+void controllaVentolaRiciclo(struct tm orario);
 const char* determinaStagione(int mese); // Restituisce la stagione in base al mese
