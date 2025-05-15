@@ -132,3 +132,9 @@ void controllaVentolaRaffreddamento(int temperatura, struct tm orario) {
 
     printf("Ventola raffreddamento: %d (Orario: %02d:%02d)\n", velocita, orario.tm_hour, orario.tm_min);
 }
+void controllaVentolaRiciclo(struct tm orario) {
+    int velocita = (orario.tm_hour - 1) * 10 + 40;
+    if (velocita < 40) velocita = 40;
+    if (velocita > 255) velocita = 255;
+    printf("Ventola riciclo aria: %d\n", velocita);
+}
