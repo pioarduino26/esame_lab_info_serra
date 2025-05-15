@@ -172,4 +172,8 @@ while (1) {
             printf("Scelta non valida! Riprova.\n");
             continue;
         }
+	int start = (scelta_categoria == 1) ? 0 : 3;
+        int end = (scelta_categoria == 1) ? 3 : 6;
 
+        // Scegli una serra specifica
+        printf("\nSeleziona una serra:\n");
