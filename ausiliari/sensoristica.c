@@ -138,3 +138,16 @@ void controllaVentolaRiciclo(struct tm orario) {
     if (velocita > 255) velocita = 255;
     printf("Ventola riciclo aria: %d\n", velocita);
 }
+
+void controllaIlluminazione(int luce, struct tm orario) {
+    if (orario.tm_hour >= 20 || orario.tm_hour < 6) {
+        // Se   notte, accendi la luce se necessario
+        if (luce < 300) {
+            printf("Accendi la luce artificiale (Notte)\n");
+        } else {
+            printf("Luce naturale sufficiente (Notte)\n");
+        }
+    } else {
+        printf("Spegni la luce artificiale (Giorno)\n");
+    }
+}
