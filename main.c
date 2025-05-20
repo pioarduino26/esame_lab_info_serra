@@ -177,3 +177,25 @@ while (1) {
 
         // Scegli una serra specifica
         printf("\nSeleziona una serra:\n");
+	for (int i = start; i < end; i++) {
+            printf("%d) %s\n", i - start + 1, serre[i].pianta.nome);
+        }
+        printf("%d) Torna al menu principale\n", end - start + 1);
+        printf("Scelta: ");
+        scanf("%d", &scelta_serra);
+
+        if (scelta_serra == end - start + 1) {
+            continue;  // Torna al menu principale
+            continue;
+        }
+
+        if (scelta_serra < 1 || scelta_serra > (end - start)) {
+            printf("Scelta non valida! Riprova.\n");
+            continue;
+        }
+
+        // Monitorare la serra selezionata
+        int serra_index = start + (scelta_serra - 1);
+        conteggio = 0;
+
+
