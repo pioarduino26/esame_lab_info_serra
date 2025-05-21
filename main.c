@@ -197,5 +197,15 @@ while (1) {
         // Monitorare la serra selezionata
         int serra_index = start + (scelta_serra - 1);
         conteggio = 0;
+	 while (1) {
+            leggiSensori(&serre[serra_index]);
 
+            printf("\n--- Serra: %s ---\n", serre[serra_index].pianta.nome);
+            printf("Temperatura: %d°C\n", serre[serra_index].temperatura);
+            printf("Umidita': %d%%\n", serre[serra_index].umidita);
+            printf("Luce: %d\n", serre[serra_index].luce);
+            printf("Umidita' terreno: %d\n", serre[serra_index].umidita_terreno);
+            printf("Livello acqua: %d\n", serre[serra_index].livello_acqua);
+            printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min);
+            printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
 
