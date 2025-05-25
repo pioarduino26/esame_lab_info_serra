@@ -1,4 +1,3 @@
-// in questo file sono contenute le varie funzioni del programma
 #include "sensoristica.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,20 +6,8 @@
 #include <unistd.h>
 #define MIN_VALUE 724
 #define MAX_VALUE 1000
-void selectionSort(SerraDati serre[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int min_idx = i;
-        for (int j = i + 1; j < n; j++) {
-            if (serre[j].umidita_terreno < serre[min_idx].umidita_terreno) {
-                min_idx = j;
-            }
-        }
-        // Scambio
-        SerraDati temp = serre[i];
-        serre[i] = serre[min_idx];
-        serre[min_idx] = temp;
-    }
-}
+
+
 void irrigazioneInsetticida(SerraDati serre[], int *n) {
     char risposta[4];
 
@@ -71,23 +58,28 @@ void irrigazioneInsetticida(SerraDati serre[], int *n) {
         }
     }
 }
-// funzione per strappare e sostituire piante
 void strappaPiantaESostituisci(SerraDati *serra) {
     // Salvo i dati originali della specie
     Pianta specie = serra->pianta;
 
     // Simulo l’operazione meccanica di “strappare” la pianta
     printf("Strappo la pianta '%s' che non ha resistito all'insetticida...\n", specie.nome);
+    // qui potresti aggiungere il codice di attivazione dello strappa-piante
+
     printf("Pianta strappata con successo.\n");
 
     // Reimpianto una nuova pianta della stessa specie
     serra->pianta = specie;
     printf("Reimpiantata una nuova pianta di specie '%s'.\n", serra->pianta.nome);
 }
+
+
+
+
 void leggiSensori(SerraDati *dati) {
     time_t t = time(NULL);
     dati->orario = *localtime(&t);
-    dati->temperatura = rand() % 30 + 15; // 15-45 C
+    dati->temperatura = rand() % 30 + 15; // 15-45�C
     dati->umidita = rand() % 40 + 30;
     dati->luce = rand() % 512;
     dati->umidita_terreno = rand() % (MAX_VALUE - MIN_VALUE) + MIN_VALUE;
@@ -100,54 +92,30 @@ const char* determinaStagione(int mese) {
     if (mese >= 9 && mese <= 11) return "Autunno";
     return "Inverno";
 }
-void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario) {
-    const char* stagione = determinaStagione(orario.tm_mon + 1);
-    int soglia = pianta.umidita_min;
 
-    if (strcmp(stagione, "Estate") == 0) {
-        soglia += 50; // In estate, il suolo perde umidit  pi  rapidamente
-    } else if (strcmp(stagione, "Inverno") == 0) {
-        soglia -= 30; // In inverno, il suolo trattiene pi  umidit 
+void salvaStoricoRec(SerraDati serre[], int n, int index, FILE* fp) {
+    if (index >= n) {
+        // caso base: tutte le serre processate
+        return;
     }
+    // Legge sensori per la serra corrente
+    leggiSensori(&serre[index]);
 
-    if (umidita_terreno >= soglia && umidita_terreno <= pianta.umidita_max) {
-        printf("[%s] Motore acqua: SPENTO\n", pianta.nome);
-    } else {
-        printf("[%s] Motore acqua: ACCESO (Stagione: %s)\n", pianta.nome, stagione);
-    }
+    // Scrive su file i dati aggiornati
+    fprintf(fp, "Serra %d: %s\n", index + 1, serre[index].pianta.nome);
+    fprintf(fp, "  Temperatura: %d°C\n", serre[index].temperatura);
+    fprintf(fp, "  Umidita': %d%%\n", serre[index].umidita);
+    fprintf(fp, "  Luce: %d\n", serre[index].luce);
+    fprintf(fp, "  Umidita' terreno: %d\n", serre[index].umidita_terreno);
+    fprintf(fp, "  Livello acqua: %d\n", serre[index].livello_acqua);
+    fprintf(fp, "  Orario: %02d:%02d\n", serre[index].orario.tm_hour, serre[index].orario.tm_min);
+    fprintf(fp, "  Stagione: %s\n", determinaStagione(serre[index].orario.tm_mon + 1));
+    fprintf(fp, "-----------------------------\n");
+
+    // Chiamata ricorsiva per la prossima serra
+    salvaStoricoRec(serre, n, index + 1, fp);
 }
 
-void controllaVentolaRaffreddamento(int temperatura, struct tm orario) {
-    int velocita;
-    if (orario.tm_hour >= 6 && orario.tm_hour <= 18) {
-        // Durante il giorno, la ventola gira pi  velocemente
-        velocita = (temperatura - 15) * 12;
-    } else {
-        // Durante la notte, la ventola rallenta
-        velocita = (temperatura - 15) * 6;
-    }
 
-    if (velocita > 255) velocita = 255;
-    if (velocita < 50) velocita = 20;
 
-    printf("Ventola raffreddamento: %d (Orario: %02d:%02d)\n", velocita, orario.tm_hour, orario.tm_min);
-}
-void controllaVentolaRiciclo(struct tm orario) {
-    int velocita = (orario.tm_hour - 1) * 10 + 40;
-    if (velocita < 40) velocita = 40;
-    if (velocita > 255) velocita = 255;
-    printf("Ventola riciclo aria: %d\n", velocita);
-}
 
-void controllaIlluminazione(int luce, struct tm orario) {
-    if (orario.tm_hour >= 20 || orario.tm_hour < 6) {
-        // Se   notte, accendi la luce se necessario
-        if (luce < 300) {
-            printf("Accendi la luce artificiale (Notte)\n");
-        } else {
-            printf("Luce naturale sufficiente (Notte)\n");
-        }
-    } else {
-        printf("Spegni la luce artificiale (Giorno)\n");
-    }
-}

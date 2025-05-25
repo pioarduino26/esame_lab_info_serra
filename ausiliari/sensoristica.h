@@ -3,15 +3,17 @@
 // uso la libreria "time.h"
 #include <time.h>
 #include <stdio.h>
+
+
 // Definizione della struttura Pianta
 typedef struct {
-    char nome[20]; // dichiaro un array di caratteri di 20 elementi
+    char nome[20];
     int umidita_min;
     int umidita_max;
     int resistenza_insetticida; // 1 = Resistente, 0 = Debole
 } Pianta;
 
-// Definizione della struttura che contiene i dati della serra (temperatura, umidità....)
+// Definizione della struttura che contiene i dati della serra
 typedef struct {
     int temperatura;
     int umidita;
@@ -21,13 +23,13 @@ typedef struct {
     struct tm orario;
     Pianta pianta;
 } SerraDati;
+
+// Prototipi delle funzioni
 void leggiSensori(SerraDati *dati);
-void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario);
-void controllaVentolaRaffreddamento(int temperatura, struct tm orario);
-void controllaIlluminazione(int luce, struct tm orario);
+const char* determinaStagione(int mese); // Restituisce la stagione in base al mese
 void selectionSort(SerraDati serre[], int n);
 void irrigazioneInsetticida(SerraDati serre[], int *n);
 void strappaPiantaESostituisci(SerraDati *serra);
 void salvaStoricoRec(SerraDati serre[], int n, int index, FILE* fp);
-void controllaVentolaRiciclo(struct tm orario);
-const char* determinaStagione(int mese); // Restituisce la stagione in base al mese
+#endif // SENSORISTICA_H
+
