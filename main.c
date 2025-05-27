@@ -5,7 +5,6 @@
 #include "ausiliari/sensoristica.h"
 #include "ausiliari/lista.h"
 #include <string.h>
-#include "ausiliari/sort.h"
 #include "ausiliari/attuatori.h"
 
 int leggiIntero(const char* prompt) {
