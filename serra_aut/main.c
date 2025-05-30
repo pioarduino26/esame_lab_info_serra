@@ -274,7 +274,13 @@ int main() {
             printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min);
             printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
             printf("Tetto: %s\n", tetto_aperto ? "Aperto" : "Chiuso");
+            controllaIrrigazione(serre[serra_index].umidita_terreno, serre[serra_index].pianta, serre[serra_index].orario);
+            controllaLivelloAcqua(serre[serra_index].livello_acqua);
+            controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario);
+            controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
             printf("\nAttendere 60 secondi per il secondo monitoraggio...\n");
+
+
             int delta = rand() % 3 - 1; // variazione di +/- 1 dei dati
 
 
@@ -283,6 +289,7 @@ int main() {
             serre[serra_index].luce = luce_iniziale + delta;
             serre[serra_index].umidita_terreno = umidita_terreno_iniziale + delta;
             serre[serra_index].livello_acqua = livello_acqua_iniziale + delta;
+
             //monitoraggio dopo 1 minuto
 
             sleep(60); //aspetto 60 secondi
@@ -293,9 +300,24 @@ int main() {
             printf("Luce: %d\n", luce_iniziale);
             printf("Umidita' terreno: %d\n", umidita_terreno_iniziale);
             printf("Livello acqua: %d\n", livello_acqua_iniziale);
-            printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min+1);
+           // printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min+1);
+           serre[serra_index].orario.tm_min += 1;
+            if (serre[serra_index].orario.tm_min >= 60) {
+                    serre[serra_index].orario.tm_min = 0;
+                    serre[serra_index].orario.tm_hour += 1;
+                        if (serre[serra_index].orario.tm_hour >= 24) {
+                            serre[serra_index].orario.tm_hour = 0;
+                            }
+                    }
             printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
             printf("Tetto: %s\n", tetto_aperto ? "Aperto" : "Chiuso");
+            controllaIrrigazione(serre[serra_index].umidita_terreno, serre[serra_index].pianta, serre[serra_index].orario);
+            controllaLivelloAcqua(serre[serra_index].livello_acqua);
+            controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario);
+            controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
+            printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min);
+
+
             // chiedo all'utente se vuole tornare al menù principale
             printf("\nVuoi tornare al menu principale? (si/no): ");
             scanf("%3s", uscita_monitoraggio);
