@@ -42,7 +42,7 @@ void stampaSerre(SerraDati serre[], int n) { // funzione per stampare in base al
 void stampaSerret(SerraDati serre[], int n) { // stampa serra in base alle temperature
     printf("\nStato delle serre:\n");
     for (int i = 0; i < n; i++) {
-        printf("Serra %d: %s - temperatura:  %d\n", i + 1, serre[i].pianta.nome, serre[i].temperatura);
+        printf("Serra %d: %s - Temperatura:  %d\n", i + 1, serre[i].pianta.nome, serre[i].temperatura);
     }
     printf("\n");
 }
@@ -89,7 +89,7 @@ void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log
         }
 
         snprintf(newNode->logData, sizeof(newNode->logData),
-                 "Serra %d: %s\n  Temperatura: %dÂ°C\n  Umidita': %d%%\n  Luce: %d\n  Umidita' terreno: %d\n  Livello acqua: %d\n  Orario: %02d:%02d\n  Stagione: %s\n-----------------------------\n",
+                 "Serra %d: %s\n  Temperatura: %dC\n  Umidita': %d%%\n  Luce: %d\n  Umidita' terreno: %d\n  Livello acqua: %d\n  Orario: %02d:%02d\n  Stagione: %s\n-----------------------------\n",
                  i + 1, serre[i].pianta.nome, serre[i].temperatura, serre[i].umidita, serre[i].luce,
                  serre[i].umidita_terreno, serre[i].livello_acqua, serre[i].orario.tm_hour,
                  serre[i].orario.tm_min, determinaStagione(serre[i].orario.tm_mon + 1));
