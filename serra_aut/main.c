@@ -18,7 +18,7 @@ int leggiIntero(const char* prompt) {
             continue; // errore di input
         }
 
-        // Controlla se l'input Ã¨ un intero valido
+
         if (sscanf(buffer, "%d", &valore) == 1) {
             return valore;
         } else {
@@ -31,7 +31,7 @@ int leggiIntero(const char* prompt) {
 
 
 
-void stampaSerre(SerraDati serre[], int n) {
+void stampaSerre(SerraDati serre[], int n) { // funzione per stampare in base all'umidità le serre
     printf("\nStato delle serre:\n");
     for (int i = 0; i < n; i++) {
         printf("Serra %d: %s - Umidita' terreno: %d\n", i + 1, serre[i].pianta.nome, serre[i].umidita_terreno);
@@ -39,7 +39,7 @@ void stampaSerre(SerraDati serre[], int n) {
     printf("\n");
 }
 
-void stampaSerret(SerraDati serre[], int n) { // stampa serra temperature
+void stampaSerret(SerraDati serre[], int n) { // stampa serra in base alle temperature
     printf("\nStato delle serre:\n");
     for (int i = 0; i < n; i++) {
         printf("Serra %d: %s - temperatura:  %d\n", i + 1, serre[i].pianta.nome, serre[i].temperatura);
@@ -47,7 +47,7 @@ void stampaSerret(SerraDati serre[], int n) { // stampa serra temperature
     printf("\n");
 }
 
-void salvaLog(SerraDati serre[], int n) {
+void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log di testo
     printf("Salva il log delle attivita' delle serre.\n");
     printf("Inserisci il nome del file in cui vuoi salvare il log: ");
     char nomeFile[100];
@@ -72,7 +72,7 @@ void salvaLog(SerraDati serre[], int n) {
 
     for (int i = 0; i < n; i++) {
         leggiSensori(&serre[i]);  // Aggiorna i dati della serra
-
+        // visualizzazione dei dei dati
         fprintf(fileSalvataggio, "Serra %d: %s\n", i + 1, serre[i].pianta.nome);
         fprintf(fileSalvataggio, "  Temperatura: %dÂ°C\n", serre[i].temperatura);
         fprintf(fileSalvataggio, "  Umidita': %d%%\n", serre[i].umidita);
@@ -116,7 +116,8 @@ void salvaLog(SerraDati serre[], int n) {
     fclose(fileSalvataggio);
     printf("Log salvato con successo in %s\n", nomeFile);
 }
-void salvaLogRicorsivo(SerraDati serre[], int n) {
+    // ricorsione
+    void salvaLogRicorsivo(SerraDati serre[], int n) {
     char nomeFile[100];
     printf("Inserisci il nome del file per lo storico: ");
     scanf("%99s", nomeFile);
@@ -131,11 +132,11 @@ void salvaLogRicorsivo(SerraDati serre[], int n) {
     salvaStoricoRec(serre, n, 0, fp);
 
     fclose(fp);
-    printf("Storico salvato con successo in %s\n", nomeFile);
+    printf("Storico salvato con successo in %s\n", nomeFile); // salvataggio storico serra
 }
 
 int main() {
-
+    // inizializzazione dei dati delle serre
     SerraDati serre[6] = {
         {0, 0, 0, 0, 0, {0}, {"Basilico", 800, 1000, 1}},
         {0, 0, 0, 0, 0, {0}, {"Peperoncino", 750, 950, 1}},
@@ -144,12 +145,13 @@ int main() {
         {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 1}},
         {0, 0, 0, 0, 0, {0}, {"Dente di Leone", 710, 930, 0}}
     };
-
+    // generatore valori casuali
     srand(time(NULL));
 
     int scelta_categoria, scelta_serra, conteggio;
     char uscita[3];
     int scelta_ordinamento;
+    // menù
     while (1) {
 
         printf("\n Seleziona la categoria di serre:\n");
@@ -161,7 +163,7 @@ int main() {
         printf("5) Salva il log delle attivita' delle serre\n");
         printf("6) Esci\n");
         scelta_categoria = leggiIntero("Scelta categoria: ");
-
+        // sotto vi sono le varie scelte
         if (scelta_categoria == 6) {
             printf("Uscita dal programma.\n");
             return 0;
@@ -171,7 +173,7 @@ int main() {
             salvaLog(serre, 6);  // Salva il log delle serre
             continue;
         }
-
+        // ordinamento
         if (scelta_categoria == 3) {
             printf("Come vuoi ordinare le serre?");
             scanf("%d",&scelta_ordinamento);
@@ -205,12 +207,13 @@ int main() {
             }
         }
 
-
+        // insetticida
        if (scelta_categoria == 4) {
            int numero_serre = 6;
            irrigazioneInsetticida(serre, &numero_serre);
            continue;
         }
+        // controllo del tetto
         if (scelta_categoria == 7) {
             controllaTetto();
             continue;
@@ -221,7 +224,7 @@ int main() {
             printf("Scelta non valida! Riprova.\n");
             continue;
         }
-
+        // selezione elementi della serra
         int start = (scelta_categoria == 1) ? 0 : 3;
         int end = (scelta_categoria == 1) ? 3 : 6;
 
@@ -246,58 +249,60 @@ int main() {
 
 
        // Monitorare la serra selezionata
-    int serra_index = start + (scelta_serra - 1);
-    char uscita_monitoraggio[4];
+        int serra_index = start + (scelta_serra - 1);
+        char uscita_monitoraggio[4];
 
 
-// Torna al menu principale dopo il ciclo
+        // monitoraggio delle serre
         do{
-        leggiSensori(&serre[serra_index]);
-        rilevaPioggia(&serre[serra_index]);
-        controlloTemperatura(serre, serra_index);
+            leggiSensori(&serre[serra_index]);
+            rilevaPioggia(&serre[serra_index]);
+            controlloTemperatura(serre, serra_index);
 
-        int temp_iniziale = serre[serra_index].temperatura;
-        int umidita_iniziale = serre[serra_index].umidita;
-        int luce_iniziale = serre[serra_index].luce;
-        int umidita_terreno_iniziale = serre[serra_index].umidita_terreno;
-        int livello_acqua_iniziale = serre[serra_index].livello_acqua;
-        // Dati iniziali
-        printf("\n--- MONITORAGGIO: %s ---\n", serre[serra_index].pianta.nome);
-        printf("Temperatura: %dC\n", temp_iniziale);
-        printf("Umidita': %d%%\n", umidita_iniziale);
-        printf("Luce: %d\n", luce_iniziale);
-        printf("Umidita' terreno: %d\n", umidita_terreno_iniziale);
-        printf("Livello acqua: %d\n", livello_acqua_iniziale);
-        printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min);
-        printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
-        printf("Tetto: %s\n", tetto_aperto ? "Aperto" : "Chiuso");
-        printf("\nAttendere 60 secondi per il secondo monitoraggio...\n");
-        int delta = rand() % 3 - 1; // variazione di +/- 1 dei dati
+            int temp_iniziale = serre[serra_index].temperatura;
+            int umidita_iniziale = serre[serra_index].umidita;
+            int luce_iniziale = serre[serra_index].luce;
+            int umidita_terreno_iniziale = serre[serra_index].umidita_terreno;
+            int livello_acqua_iniziale = serre[serra_index].livello_acqua;
+            // Dati iniziali
+            printf("\n--- MONITORAGGIO: %s ---\n", serre[serra_index].pianta.nome);
+            printf("Temperatura: %dC\n", temp_iniziale);
+            printf("Umidita': %d%%\n", umidita_iniziale);
+            printf("Luce: %d\n", luce_iniziale);
+            printf("Umidita' terreno: %d\n", umidita_terreno_iniziale);
+            printf("Livello acqua: %d\n", livello_acqua_iniziale);
+            printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min);
+            printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
+            printf("Tetto: %s\n", tetto_aperto ? "Aperto" : "Chiuso");
+            printf("\nAttendere 60 secondi per il secondo monitoraggio...\n");
+            int delta = rand() % 3 - 1; // variazione di +/- 1 dei dati
 
 
-        serre[serra_index].temperatura = temp_iniziale + delta;
-        serre[serra_index].umidita = umidita_iniziale + delta;
-        serre[serra_index].luce = luce_iniziale + delta;
-        serre[serra_index].umidita_terreno = umidita_terreno_iniziale + delta;
-        serre[serra_index].livello_acqua = livello_acqua_iniziale + delta;
-        //dati dopo 1 min
+            serre[serra_index].temperatura = temp_iniziale + delta;
+            serre[serra_index].umidita = umidita_iniziale + delta;
+            serre[serra_index].luce = luce_iniziale + delta;
+            serre[serra_index].umidita_terreno = umidita_terreno_iniziale + delta;
+            serre[serra_index].livello_acqua = livello_acqua_iniziale + delta;
+            //monitoraggio dopo 1 minuto
 
-        sleep(60);
-        printf("\n--- MONITORAGGIO DOPO 60 SECONDI: %s ---\n", serre[serra_index].pianta.nome);
-        printf("Temperatura: %dC\n", temp_iniziale);
-        printf("Umidita': %d%%\n", umidita_iniziale);
-        printf("Luce: %d\n", luce_iniziale);
-        printf("Umidita' terreno: %d\n", umidita_terreno_iniziale);
-        printf("Livello acqua: %d\n", livello_acqua_iniziale);
-        printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min+1);
-        printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
-        printf("Tetto: %s\n", tetto_aperto ? "Aperto" : "Chiuso");
+            sleep(60); //aspetto 60 secondi
+            // monitoraggio serra dopo 60 secondi
+            printf("\n--- MONITORAGGIO DOPO 60 SECONDI: %s ---\n", serre[serra_index].pianta.nome);
+            printf("Temperatura: %dC\n", temp_iniziale);
+            printf("Umidita': %d%%\n", umidita_iniziale);
+            printf("Luce: %d\n", luce_iniziale);
+            printf("Umidita' terreno: %d\n", umidita_terreno_iniziale);
+            printf("Livello acqua: %d\n", livello_acqua_iniziale);
+            printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min+1);
+            printf("Stagione: %s\n", determinaStagione(serre[serra_index].orario.tm_mon + 1));
+            printf("Tetto: %s\n", tetto_aperto ? "Aperto" : "Chiuso");
+            // chiedo all'utente se vuole tornare al menù principale
+            printf("\nVuoi tornare al menu principale? (si/no): ");
+            scanf("%3s", uscita_monitoraggio);
 
-        printf("\nVuoi tornare al menu principale? (si/no): ");
-        scanf("%3s", uscita_monitoraggio);
+            }
+    while (strcmp(uscita_monitoraggio, "no") == 0); // no= il monitoraggio continua fin quando l'utente non dice "si"
+        }
 
-    }while (strcmp(uscita_monitoraggio, "no") == 0);
-}
-
-return 0;
+    return 0;
 }
