@@ -278,6 +278,7 @@ int main() {
             controllaLivelloAcqua(serre[serra_index].livello_acqua);
             controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
+            controllaVentolaRiciclo(serre[serra_index].orario);
             printf("\nAttendere 60 secondi per il secondo monitoraggio...\n");
 
 
@@ -315,6 +316,7 @@ int main() {
             controllaLivelloAcqua(serre[serra_index].livello_acqua);
             controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
+            controllaVentolaRiciclo(serre[serra_index].orario);
             printf("Orario: %02d:%02d\n", serre[serra_index].orario.tm_hour, serre[serra_index].orario.tm_min);
 
 
