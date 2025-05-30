@@ -1,6 +1,5 @@
 #ifndef SENSORISTICA_H
 #define SENSORISTICA_H
-// uso la libreria "time.h"
 #include <time.h>
 #include <stdio.h>
 
