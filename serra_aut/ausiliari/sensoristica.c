@@ -4,9 +4,9 @@
 #include <time.h>
 #include <string.h>
 #include <unistd.h>
+#include "terna.h"
 #define MIN_VALUE 724
 #define MAX_VALUE 1000
-
 
 void irrigazioneInsetticida(SerraDati serre[], int *n) {
     char risposta[4];
@@ -85,6 +85,7 @@ void leggiSensori(SerraDati *dati) {
     dati->umidita_terreno = rand() % (MAX_VALUE - MIN_VALUE) + MIN_VALUE;
     dati->livello_acqua = rand() % 500;
 }
+
 
 const char* determinaStagione(int mese) {
     if (mese >= 3 && mese <= 5) return "Primavera";
