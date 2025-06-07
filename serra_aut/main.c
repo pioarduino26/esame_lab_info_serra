@@ -8,6 +8,9 @@
 #include "ausiliari/attuatori.h"
 #include "ausiliari/terna.h"
 
+// eliminazione log
+// file di testo
+//sul file di testo devo avere tutto il monitoraggio e devono funzionare tutte le funzioni della lista concatenata
 
 int leggiIntero(const char* prompt) {
     char buffer[100];
@@ -22,7 +25,7 @@ int leggiIntero(const char* prompt) {
         if (sscanf(buffer, "%d", &valore) == 1) {
             return valore;
         } else {
-            printf("Input non valido. Inserisci un numero.\n");
+            printf("Input non valido. Inserisci un numero valido.\n");
         }
     }
 }
@@ -39,18 +42,18 @@ void stampaSerre(SerraDati serre[], int n) { // funzione per stampare in base al
 void stampaSerret(SerraDati serre[], int n) { // stampa serra in base alle temperature
     printf("\nStato delle serre:\n");
     for (int i = 0; i < n; i++) {
-        printf("Serra %d: %s - Temperatura:  %d\n", i + 1, serre[i].pianta.nome, serre[i].temperatura);
+        printf("Serra %d: %s - Temperatura: %dC\n", i + 1, serre[i].pianta.nome, serre[i].temperatura);
     }
     printf("\n");
 }
 
 void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log di testo
     printf("Salva il log delle attivita' delle serre.\n");
-    printf("Inserisci il nome del file in cui vuoi salvare il log: ");
+    printf("Inserisci il nome del file con cui vuoi salvare il log: ");
     char nomeFile[100];
-    scanf("%99s", nomeFile);
+    scanf("%99s", nomeFile); // leggo al max 99 caratteri
 
-    FILE* fileSalvataggio = fopen(nomeFile, "w");
+    FILE* fileSalvataggio = fopen(nomeFile, "w"); //apro il file di salvataggio in modalità di scrittura
     if (!fileSalvataggio) {
         printf("Errore: Impossibile creare il file di salvataggio.\n");
         return;
@@ -60,15 +63,15 @@ void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log
     // Definizione della struttura per la lista concatenata
     typedef struct LogNode {
         char logData[256];
-        struct LogNode* next;
+        struct LogNode* next; // è un puntatore al nodo successivo
     } LogNode;
 
     // Creazione della lista concatenata temporanea
-    LogNode* head = NULL;
-    LogNode* tail = NULL;
+    LogNode* head = NULL; //nodo di testa della lista
+    LogNode* tail = NULL; //nodo di coda della lista
 
     for (int i = 0; i < n; i++) {
-        leggiSensori(&serre[i]);  // Aggiorna i dati della serra
+        leggiSensori(&serre[i],i);  // Aggiorna i dati della serra
         // visualizzazione dei dei dati
         fprintf(fileSalvataggio, "Serra %d: %s\n", i + 1, serre[i].pianta.nome);
         fprintf(fileSalvataggio, "  Temperatura: %dÂ°C\n", serre[i].temperatura);
@@ -79,8 +82,9 @@ void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log
         fprintf(fileSalvataggio, "  Orario: %02d:%02d\n", serre[i].orario.tm_hour, serre[i].orario.tm_min);
         fprintf(fileSalvataggio, "  Stagione: %s\n", determinaStagione(serre[i].orario.tm_mon + 1));
         fprintf(fileSalvataggio, "-----------------------------\n");
-        LogNode* newNode = (LogNode*)malloc(sizeof(LogNode));
-        if (newNode == NULL) {
+
+        LogNode* newNode = (LogNode*)malloc(sizeof(LogNode)); // alloco la memoria dinamicamente per un nuovo nodo di tipo LogNode e ne restituisco il puntatore
+        if (newNode == NULL) { //se il puntatore al nuovo nodo è NULL
             printf("Errore: Memoria insufficiente per creare il nodo.\n");
             break;
         }
@@ -89,25 +93,25 @@ void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log
                  "Serra %d: %s\n  Temperatura: %dC\n  Umidita': %d%%\n  Luce: %d\n  Umidita' terreno: %d\n  Livello acqua: %d\n  Orario: %02d:%02d\n  Stagione: %s\n-----------------------------\n",
                  i + 1, serre[i].pianta.nome, serre[i].temperatura, serre[i].umidita, serre[i].luce,
                  serre[i].umidita_terreno, serre[i].livello_acqua, serre[i].orario.tm_hour,
-                 serre[i].orario.tm_min, determinaStagione(serre[i].orario.tm_mon + 1));
+                 serre[i].orario.tm_min, determinaStagione(serre[i].orario.tm_mon + 1)); // compongo una stringa con tutti i dati della serra e la memorizza in newNode->logData garantendo di non superare la dim del buffer
 
-        newNode->next = NULL;
+        newNode->next = NULL; // il nuovo nodo è l'ultimo della lista
 
-        if (head == NULL) {
-            head = tail = newNode;
+        if (head == NULL) { // se la testa della lista è NULL (vuota)
+            head = tail = newNode; //alla testa assegno coda e alla coda assegno newNode (nodo successivo)
         } else {
-            tail->next = newNode;
-            tail = newNode;
+            tail->next = newNode; //la coda punta al nuovo nodo
+            tail = newNode; // alla coda assegno il nuovo nodo
         }
     }
 
     // Salvataggio dei dati dalla lista concatenata nel file
-    LogNode* current = head;
-    while (current != NULL) {
-        fprintf(fileSalvataggio, "%s", current->logData);
-        LogNode* temp = current;
-        current = current->next;
-        free(temp); // Liberazione della memoria del nodo
+    LogNode* current = head; // inizializzo un puntatore corrente al 1 nodo della lista
+    while (current != NULL) { // fin tanto che ci sono nodi nella lista
+        fprintf(fileSalvataggio, "%s", current->logData); //scrivo sul file il contenuto del nodo corrente
+        LogNode* temp = current; // creo un nuovo puntatore a cui assegno i valori di current
+        current = current->next; // punto il nodo corrente al successivo della lista
+        free(temp); // libero la memoria del nodo
     }
 
     fclose(fileSalvataggio);
@@ -118,9 +122,9 @@ void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log
     char nomeFile[100];
     printf("Inserisci il nome del file per lo storico: ");
     scanf("%99s", nomeFile);
-
+    //apertura file in modalita' scrittura
     FILE* fp = fopen(nomeFile, "w");
-    if (!fp) {
+    if (!fp) { // se il file non è stato aperto correttamente
         perror("Errore apertura file");
         return;
     }
@@ -139,7 +143,7 @@ int main() {
         {0, 0, 0, 0, 0, {0}, {"Peperoncino", 750, 950, 1}},
         {0, 0, 0, 0, 0, {0}, {"Cipolla", 720, 900, 1}},
         {0, 0, 0, 0, 0, {0}, {"Margherita", 700, 920, 0}},
-        {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 1}},
+        {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 0}},
         {0, 0, 0, 0, 0, {0}, {"Dente di Leone", 710, 930, 0}}
     };
     // generatore valori casuali
@@ -176,10 +180,11 @@ int main() {
             printf("Come vuoi ordinare le serre?");
             scanf("%d",&scelta_ordinamento);
             switch (scelta_ordinamento) {
+                // ordinamento per umidità
                     case 1:
                   // Aggiorna i dati delle serre prima dell'ordinamento
                     for (int i = 0; i < 6; i++) {
-                        leggiSensori(&serre[i]);
+                        leggiSensori(&serre[i],i); //invoco la funzione leggiSensori passando il riferimento alla serra corrente per leggere dati da sensori
                     }
 
                     printf("\n--- Prima dell'ordinamento ---\n");
@@ -189,11 +194,11 @@ int main() {
                     stampaSerre(serre, 6);
                     continue;
 
-
+                //ordinamento per temperatura
                 case 2:
               // Aggiorna i dati delle serre prima dell'ordinamento
                     for (int i = 0; i < 6; i++) {
-                        leggiSensori(&serre[i]);
+                        leggiSensori(&serre[i],i); //invoco la funzione leggiSensori passando il riferimento alla serra corrente per leggere dati da sensori
                         }
 
                 printf("\n--- Prima dell'ordinamento ---\n");
@@ -205,11 +210,12 @@ int main() {
             }
         }
 
-        // insetticida
+        // applicazione dell'insetticida
        if (scelta_categoria == 4) {
            int numero_serre = 6;
-           irrigazioneInsetticida(serre, &numero_serre);
-           continue;
+           irrigazioneInsetticida(serre, &numero_serre); // invoco la funzione irrigazioneInsetticida per gestire l'insetticida sulle serre
+
+           continue; // salto al prossimo ciclo
         }
 
 
@@ -220,7 +226,7 @@ int main() {
             continue;
         }
         // selezione elementi della serra
-        int start = (scelta_categoria == 1) ? 0 : 3;
+        int start = (scelta_categoria == 1) ? 0 : 3; // se selgo categoria 1 ho 3 possibilità di scelta Basilico....
         int end = (scelta_categoria == 1) ? 3 : 6;
 
         // Scegli una serra specifica
@@ -250,7 +256,7 @@ int main() {
 
         // monitoraggio delle serre
         do{
-            leggiSensori(&serre[serra_index]);
+            leggiSensori(&serre[serra_index], serra_index);
 
             controlloTemperatura(serre, serra_index);
 
