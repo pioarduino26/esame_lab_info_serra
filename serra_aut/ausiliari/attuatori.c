@@ -95,7 +95,7 @@ void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario) 
 }
 void controllaIlluminazione(int luce, struct tm orario) {
     if (orario.tm_hour >= 20 || orario.tm_hour < 6) {
-        // Se e' notte, accendi la luce se necessario
+        // Se � notte, accendi la luce se necessario
         if (luce < 300) {
             printf("Accendi la luce artificiale (Notte)\n");
         } else {
