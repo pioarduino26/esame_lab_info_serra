@@ -57,25 +57,25 @@
 	<unistd.h>
 	<stdlib.h>
 
-1749280065 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.h
+1749052043 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.h
 	"sensoristica.h"
 	<time.h>
 	<stdio.h>
 
-1749280065 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.h
+1748614683 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.h
 	<time.h>
 	<stdio.h>
 
-1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.c
+1749055714 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.c
 	"lista.h"
 
-1749280065 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.h
+1749055893 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	"sensoristica.h"
 
-1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.c
+1748616765 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.c
 	"sensoristica.h"
 	<stdio.h>
 	<stdlib.h>
@@ -84,19 +84,15 @@
 	<unistd.h>
 	"terna.h"
 
-1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sort.c
+1748544868 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sort.c
 	"sensoristica.h"
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<unistd.h>
-	"sensoristica.h"
-	<stdio.h>
-	<stdlib.h>
-	"terna.h"
 
-1749280259 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\main.c
+1749052165 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -110,7 +106,71 @@
 1748544868 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.h
 	"sensoristica.h"
 
-1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.c
+1748544868 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.c
 	"terna.h"
 	"sensoristica.h"
+
+1749056745 source:c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.c
+	"attuatori.h"
+	<time.h>
+	<stdio.h>
+	<unistd.h>
+	<stdlib.h>
+
+1749056745 c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.h
+	"sensoristica.h"
+	<time.h>
+	<stdio.h>
+
+1749140414 c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.h
+	<time.h>
+	<stdio.h>
+
+1749056745 source:c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.c
+	"lista.h"
+
+1749056745 c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"sensoristica.h"
+
+1749144141 source:c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.c
+	"sensoristica.h"
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<unistd.h>
+	"terna.h"
+
+1749056745 c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.h
+	"sensoristica.h"
+
+1749139882 source:c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\sort.c
+	"sensoristica.h"
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<unistd.h>
+	"sensoristica.h"
+	<stdio.h>
+	<stdlib.h>
+	"terna.h"
+
+1749139473 source:c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.c
+	"terna.h"
+	"sensoristica.h"
+
+1749144129 source:c:\users\torne\desktop\laboratorio_informatica\esame_lab_info_serra\serra_aut\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	"ausiliari/sensoristica.h"
+	"ausiliari/lista.h"
+	<string.h>
+	"ausiliari/attuatori.h"
+	"ausiliari/terna.h"
 
