@@ -10,7 +10,8 @@ ValoriFissi valori_fissi[] = {
     {20, 940},    // Tulipano
     {22, 930}     // Dente di Leone
 }; //uso dei valori fissi più conveniente e meno laborioso rispetto all'uso di rand()
-extern ValoriFissi valori_fissi[];
+
+
 
 // Funzione di controllo della temperatura
 void controlloTemperatura(SerraDati serre[], int n) {
