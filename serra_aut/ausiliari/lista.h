@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "sensoristica.h"
-
+// definisco una struttura LogNode
 typedef struct LogNode {
     char logData[512];
     struct LogNode* next;

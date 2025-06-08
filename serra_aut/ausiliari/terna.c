@@ -10,16 +10,16 @@ ValoriFissi valori_fissi[] = {
     {20, 940},    // Tulipano
     {22, 930}     // Dente di Leone
 }; //uso dei valori fissi più conveniente e meno laborioso rispetto all'uso di rand()
-
-
+extern ValoriFissi valori_fissi[];
 
 // Funzione di controllo della temperatura
 void controlloTemperatura(SerraDati serre[], int n) {
         // Confronta la temperatura letta con quella fissa
+        // controllo se la temperatura è fuori dal range accettabile +/- 5°C fissi
         if (serre[n].temperatura < (valori_fissi[n].temperatura_fissa - 5) ||
             serre[n].temperatura > (valori_fissi[n].temperatura_fissa + 5)) {
             printf("La temperatura della serra %d e'fuori range! Correggo il valore a...\n", n + 1);
-            // Correggi la temperatura
+            // Correggo la temperatura della serra riportandola al valore ideale
             serre[n].temperatura = valori_fissi[n].temperatura_fissa;
             printf("La temperatura della serra %d e' stata ripristinata a: %d C\n", n + 1, serre[n].temperatura);
         } else {

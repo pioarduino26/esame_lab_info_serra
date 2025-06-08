@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdio.h>
 
-// Variabile globale per lo stato del tetto
+// Variabili globale per lo stato del tetto
 extern int tetto_aperto; // 0 = chiuso, 1 = aperto
 extern time_t ultima_pioggia;
 
