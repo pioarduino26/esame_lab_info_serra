@@ -1,0 +1,108 @@
+Serra 1: Basilico
+  Temperatura: 17Â°C
+  Umidita': 67%
+  Luce: 396
+  Umidita' terreno: 944
+  Livello acqua: 80
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 2: Peperoncino
+  Temperatura: 22Â°C
+  Umidita': 56%
+  Luce: 56
+  Umidita' terreno: 903
+  Livello acqua: 27
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 3: Cipolla
+  Temperatura: 27Â°C
+  Umidita': 65%
+  Luce: 29
+  Umidita' terreno: 744
+  Livello acqua: 239
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 4: Margherita
+  Temperatura: 37Â°C
+  Umidita': 32%
+  Luce: 44
+  Umidita' terreno: 966
+  Livello acqua: 49
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 5: Tulipano
+  Temperatura: 28Â°C
+  Umidita': 34%
+  Luce: 149
+  Umidita' terreno: 810
+  Livello acqua: 239
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 6: Dente di Leone
+  Temperatura: 41Â°C
+  Umidita': 52%
+  Luce: 477
+  Umidita' terreno: 830
+  Livello acqua: 36
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 1: Basilico
+  Temperatura: 17C
+  Umidita': 67%
+  Luce: 396
+  Umidita' terreno: 944
+  Livello acqua: 80
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 2: Peperoncino
+  Temperatura: 22C
+  Umidita': 56%
+  Luce: 56
+  Umidita' terreno: 903
+  Livello acqua: 27
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 3: Cipolla
+  Temperatura: 27C
+  Umidita': 65%
+  Luce: 29
+  Umidita' terreno: 744
+  Livello acqua: 239
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 4: Margherita
+  Temperatura: 37C
+  Umidita': 32%
+  Luce: 44
+  Umidita' terreno: 966
+  Livello acqua: 49
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 5: Tulipano
+  Temperatura: 28C
+  Umidita': 34%
+  Luce: 149
+  Umidita' terreno: 810
+  Livello acqua: 239
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------
+Serra 6: Dente di Leone
+  Temperatura: 41C
+  Umidita': 52%
+  Luce: 477
+  Umidita' terreno: 830
+  Livello acqua: 36
+  Orario: 18:39
+  Stagione: Estate
+-----------------------------

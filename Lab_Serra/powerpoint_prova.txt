@@ -1,0 +1,108 @@
+Serra 1: Dente di Leone
+  Temperatura: 34Â°C
+  Umidita': 63%
+  Luce: 81
+  Umidita' terreno: 803
+  Livello acqua: 182
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 2: Peperoncino
+  Temperatura: 26Â°C
+  Umidita': 44%
+  Luce: 91
+  Umidita' terreno: 916
+  Livello acqua: 139
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 3: Tulipano
+  Temperatura: 34Â°C
+  Umidita': 55%
+  Luce: 175
+  Umidita' terreno: 854
+  Livello acqua: 175
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 4: Margherita
+  Temperatura: 32Â°C
+  Umidita': 52%
+  Luce: 98
+  Umidita' terreno: 760
+  Livello acqua: 142
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 5: Basilico
+  Temperatura: 40Â°C
+  Umidita': 43%
+  Luce: 489
+  Umidita' terreno: 775
+  Livello acqua: 157
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 6: Cipolla
+  Temperatura: 40Â°C
+  Umidita': 58%
+  Luce: 408
+  Umidita' terreno: 909
+  Livello acqua: 175
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 1: Dente di Leone
+  Temperatura: 34C
+  Umidita': 63%
+  Luce: 81
+  Umidita' terreno: 803
+  Livello acqua: 182
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 2: Peperoncino
+  Temperatura: 26C
+  Umidita': 44%
+  Luce: 91
+  Umidita' terreno: 916
+  Livello acqua: 139
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 3: Tulipano
+  Temperatura: 34C
+  Umidita': 55%
+  Luce: 175
+  Umidita' terreno: 854
+  Livello acqua: 175
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 4: Margherita
+  Temperatura: 32C
+  Umidita': 52%
+  Luce: 98
+  Umidita' terreno: 760
+  Livello acqua: 142
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 5: Basilico
+  Temperatura: 40C
+  Umidita': 43%
+  Luce: 489
+  Umidita' terreno: 775
+  Livello acqua: 157
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------
+Serra 6: Cipolla
+  Temperatura: 40C
+  Umidita': 58%
+  Luce: 408
+  Umidita' terreno: 909
+  Livello acqua: 175
+  Orario: 19:47
+  Stagione: Primavera
+-----------------------------

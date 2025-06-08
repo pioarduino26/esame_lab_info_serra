@@ -1,0 +1,108 @@
+Serra 1: Basilico
+  Temperatura: 33°C
+  Umidita': 46%
+  Luce: 11
+  Umidita' terreno: 809
+  Livello acqua: 315
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 2: Peperoncino
+  Temperatura: 25°C
+  Umidita': 43%
+  Luce: 358
+  Umidita' terreno: 747
+  Livello acqua: 287
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 3: Cipolla
+  Temperatura: 24°C
+  Umidita': 48%
+  Luce: 419
+  Umidita' terreno: 737
+  Livello acqua: 446
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 4: Margherita
+  Temperatura: 17°C
+  Umidita': 32%
+  Luce: 355
+  Umidita' terreno: 981
+  Livello acqua: 325
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 5: Tulipano
+  Temperatura: 31°C
+  Umidita': 39%
+  Luce: 123
+  Umidita' terreno: 745
+  Livello acqua: 22
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 6: Dente di Leone
+  Temperatura: 21°C
+  Umidita': 53%
+  Luce: 352
+  Umidita' terreno: 979
+  Livello acqua: 245
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 1: Basilico
+  Temperatura: 33°C
+  Umidita': 46%
+  Luce: 11
+  Umidita' terreno: 809
+  Livello acqua: 315
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 2: Peperoncino
+  Temperatura: 25°C
+  Umidita': 43%
+  Luce: 358
+  Umidita' terreno: 747
+  Livello acqua: 287
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 3: Cipolla
+  Temperatura: 24°C
+  Umidita': 48%
+  Luce: 419
+  Umidita' terreno: 737
+  Livello acqua: 446
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 4: Margherita
+  Temperatura: 17°C
+  Umidita': 32%
+  Luce: 355
+  Umidita' terreno: 981
+  Livello acqua: 325
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 5: Tulipano
+  Temperatura: 31°C
+  Umidita': 39%
+  Luce: 123
+  Umidita' terreno: 745
+  Livello acqua: 22
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------
+Serra 6: Dente di Leone
+  Temperatura: 21°C
+  Umidita': 53%
+  Luce: 352
+  Umidita' terreno: 979
+  Livello acqua: 245
+  Orario: 09:20
+  Stagione: Primavera
+-----------------------------

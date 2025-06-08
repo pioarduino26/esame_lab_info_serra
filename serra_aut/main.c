@@ -8,9 +8,7 @@
 #include "ausiliari/attuatori.h"
 #include "ausiliari/terna.h"
 
-// eliminazione log
-// file di testo
-//sul file di testo devo avere tutto il monitoraggio e devono funzionare tutte le funzioni della lista concatenata
+
 
 int leggiIntero(const char* prompt) {
     char buffer[100];
@@ -185,6 +183,7 @@ int main() {
                   // Aggiorna i dati delle serre prima dell'ordinamento
                     for (int i = 0; i < 6; i++) {
                         leggiSensori(&serre[i],i); //invoco la funzione leggiSensori passando il riferimento alla serra corrente per leggere dati da sensori
+
                     }
 
                     printf("\n--- Prima dell'ordinamento ---\n");
@@ -199,6 +198,7 @@ int main() {
               // Aggiorna i dati delle serre prima dell'ordinamento
                     for (int i = 0; i < 6; i++) {
                         leggiSensori(&serre[i],i); //invoco la funzione leggiSensori passando il riferimento alla serra corrente per leggere dati da sensori
+                        controlloTemperatura(serre, i); // Controlla e correggi la temperatura
                         }
 
                 printf("\n--- Prima dell'ordinamento ---\n");
@@ -226,7 +226,7 @@ int main() {
             continue;
         }
         // selezione elementi della serra
-        int start = (scelta_categoria == 1) ? 0 : 3; // se selgo categoria 1 ho 3 possibilità di scelta Basilico....
+        int start = (scelta_categoria == 1) ? 0 : 3; // se scelgo categoria 1 ho 3 possibilità di scelta Basilico....
         int end = (scelta_categoria == 1) ? 3 : 6;
 
         // Scegli una serra specifica
@@ -239,7 +239,6 @@ int main() {
 
         if (scelta_serra == end - start + 1) {
             continue;  // Torna al menu principale
-            continue;
         }
 
         if (scelta_serra < 1 || scelta_serra > (end - start)) {

@@ -50,44 +50,67 @@
 	<string.h>
 	"ausiliari/attuatori.h"
 
-1748187234 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.c
+1748544868 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.c
 	"attuatori.h"
 	<time.h>
 	<stdio.h>
 	<unistd.h>
 	<stdlib.h>
 
-1748187258 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.h
+1749280065 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\attuatori.h
 	"sensoristica.h"
 	<time.h>
 	<stdio.h>
 
-1748187292 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.h
+1749280065 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.h
 	<time.h>
 	<stdio.h>
 
-1748280282 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.c
+1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.c
 	"lista.h"
 
-1748280282 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.h
+1749280065 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\lista.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	"sensoristica.h"
 
-1748187292 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.c
+1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sensoristica.c
 	"sensoristica.h"
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<unistd.h>
+	"terna.h"
 
-1748187292 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sort.c
+1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\sort.c
 	"sensoristica.h"
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<unistd.h>
+	"sensoristica.h"
+	<stdio.h>
+	<stdlib.h>
+	"terna.h"
+
+1749280259 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	"ausiliari/sensoristica.h"
+	"ausiliari/lista.h"
+	<string.h>
+	"ausiliari/attuatori.h"
+	"ausiliari/terna.h"
+
+1748544868 d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.h
+	"sensoristica.h"
+
+1749280065 source:d:\dati_utente\desktop\lab_informatica\esame_lab_info_serra\serra_aut\ausiliari\terna.c
+	"terna.h"
+	"sensoristica.h"
 

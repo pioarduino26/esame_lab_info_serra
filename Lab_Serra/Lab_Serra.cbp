@@ -31,22 +31,26 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="../ausiliari/attuatori.c">
+		<Unit filename="../serra_aut/ausiliari/attuatori.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../ausiliari/attuatori.h" />
-		<Unit filename="../ausiliari/lista.c">
+		<Unit filename="../serra_aut/ausiliari/attuatori.h" />
+		<Unit filename="../serra_aut/ausiliari/lista.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../ausiliari/lista.h" />
-		<Unit filename="../ausiliari/sensoristica.c">
+		<Unit filename="../serra_aut/ausiliari/lista.h" />
+		<Unit filename="../serra_aut/ausiliari/sensoristica.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../ausiliari/sensoristica.h" />
-		<Unit filename="../ausiliari/sort.c">
+		<Unit filename="../serra_aut/ausiliari/sensoristica.h" />
+		<Unit filename="../serra_aut/ausiliari/sort.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../main.c">
+		<Unit filename="../serra_aut/ausiliari/terna.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../serra_aut/ausiliari/terna.h" />
+		<Unit filename="../serra_aut/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />

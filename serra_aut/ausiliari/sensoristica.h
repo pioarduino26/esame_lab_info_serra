@@ -24,7 +24,7 @@ typedef struct {
 } SerraDati;
 
 // Prototipi delle funzioni
-void leggiSensori(SerraDati *dati);
+void leggiSensori(SerraDati *dati, int index);
 const char* determinaStagione(int mese); // Restituisce la stagione in base al mese
 void selectionSort(SerraDati serre[], int n);
 void irrigazioneInsetticida(SerraDati serre[], int *n);

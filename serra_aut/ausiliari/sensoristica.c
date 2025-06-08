@@ -76,13 +76,13 @@ void strappaPiantaESostituisci(SerraDati *serra) {
 
 
 
-void leggiSensori(SerraDati *dati) {
+void leggiSensori(SerraDati *dati,int index) {
     time_t t = time(NULL);
     dati->orario = *localtime(&t);
-    dati->temperatura = rand() % 30 + 15; // 15-45�C
+    dati->temperatura = valori_fissi[index].temperatura_fissa;
+    dati->umidita_terreno = valori_fissi[index].umidita_terreno_fissa;
     dati->umidita = rand() % 40 + 30;
     dati->luce = rand() % 512;
-    dati->umidita_terreno = rand() % (MAX_VALUE - MIN_VALUE) + MIN_VALUE;
     dati->livello_acqua = rand() % 500;
 }
 
@@ -100,7 +100,7 @@ void salvaStoricoRec(SerraDati serre[], int n, int index, FILE* fp) {
         return;
     }
     // Legge sensori per la serra corrente
-    leggiSensori(&serre[index]);
+    leggiSensori(&serre[index],index);
 
     // Scrive su file i dati aggiornati
     fprintf(fp, "Serra %d: %s\n", index + 1, serre[index].pianta.nome);
@@ -116,7 +116,6 @@ void salvaStoricoRec(SerraDati serre[], int n, int index, FILE* fp) {
     // Chiamata ricorsiva per la prossima serra
     salvaStoricoRec(serre, n, index + 1, fp);
 }
-
 
 
 
