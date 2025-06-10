@@ -25,7 +25,8 @@ int rilevaPioggia() {
     return pioggia;
 }
 //Implementazione di controllaTetto
-void controllaTetto() {
+// Implementazione aggiornata di controllaTetto
+void controllaTetto(SerraDati *serra) {
     int pioggia = rilevaPioggia();
 
     if (pioggia) {
@@ -35,11 +36,14 @@ void controllaTetto() {
         printf("Nessuna pioggia: APERTURA automatica del tetto.\n");
         tetto_aperto = 1; // Tetto aperto
     }
+
+    // Aggiorna lo stato del tetto nella struttura SerraDati
+    serra->tetto = tetto_aperto;
 }
 
 
 // Implementazione aggiornata di controllaVentolaRaffreddamento
-void controllaVentolaRaffreddamento(int temperatura, struct tm orario) {
+void controllaVentolaRaffreddamento(int temperatura, struct tm orario,SerraDati *serra) {
     int velocita;
     if (orario.tm_hour >= 6 && orario.tm_hour <= 18) {
         velocita = (temperatura - 15) * 12;
@@ -56,10 +60,12 @@ void controllaVentolaRaffreddamento(int temperatura, struct tm orario) {
     if (velocita < 50) velocita = 20;
 
     printf("Ventola raffreddamento: %d (Orario: %02d:%02d)\n", velocita, orario.tm_hour, orario.tm_min);
+    serra->ventola_raffreddamento = velocita;
 }
 
 // Implementazione aggiornata di controllaVentolaRiciclo
-void controllaVentolaRiciclo(struct tm orario) {
+// Implementazione aggiornata di controllaVentolaRiciclo
+void controllaVentolaRiciclo(struct tm orario, SerraDati *serra) {
     int velocita = (orario.tm_hour - 1) * 10 + 40;
     if (velocita < 40) velocita = 40;
     if (velocita > 255) velocita = 255;
@@ -71,6 +77,9 @@ void controllaVentolaRiciclo(struct tm orario) {
     }
 
     printf("Ventola riciclo aria: %d\n", velocita);
+
+    // Aggiorna il campo ventola_riciclo nella struttura SerraDati
+    serra->ventola_riciclo = velocita;
 }
 
 // Implementazione aggiornata di controllaIrrigazione
@@ -95,7 +104,7 @@ void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario) 
 }
 void controllaIlluminazione(int luce, struct tm orario) {
     if (orario.tm_hour >= 20 || orario.tm_hour < 6) {
-        // Se � notte, accendi la luce se necessario
+        // Se e' notte, accendi la luce se necessario
         if (luce < 300) {
             printf("Accendi la luce artificiale (Notte)\n");
         } else {
