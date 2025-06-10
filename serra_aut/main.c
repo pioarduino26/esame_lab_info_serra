@@ -7,6 +7,8 @@
 #include <string.h>
 #include "ausiliari/attuatori.h"
 #include "ausiliari/terna.h"
+#include "ausiliari/utils.h"
+
 
 
 
@@ -45,94 +47,78 @@ void stampaSerret(SerraDati serre[], int n) { // stampa serra in base alle tempe
     printf("\n");
 }
 
-void salvaLog(SerraDati serre[], int n) { // funzione per creare e salvare i log di testo
-    printf("Salva il log delle attivita' delle serre.\n");
+void salvaLog(SerraDati serre[], int n, bool monitorate[]) {
+    bool almeno_una = false;
+    for (int i = 0; i < n; i++) {
+        if (monitorate[i]) {
+            almeno_una = true;
+            break;
+        }
+    }
+
+    if (!almeno_una) {
+        printf(" Nessuna serra monitorata\n");
+        return;
+    }
+
+    // Chiedi il nome del file
     printf("Inserisci il nome del file con cui vuoi salvare il log: ");
     char nomeFile[100];
-    scanf("%99s", nomeFile); // leggo al max 99 caratteri
+    scanf("%99s", nomeFile);
 
-    FILE* fileSalvataggio = fopen(nomeFile, "w"); //apro il file di salvataggio in modalità di scrittura
+    FILE* fileSalvataggio = fopen(nomeFile, "w");
     if (!fileSalvataggio) {
         printf("Errore: Impossibile creare il file di salvataggio.\n");
         return;
     }
 
-    // Genera e salva i dati delle serre nel file specificato
-    // Definizione della struttura per la lista concatenata
-    typedef struct LogNode {
-        char logData[256];
-        struct LogNode* next; // è un puntatore al nodo successivo
-    } LogNode;
-
-    // Creazione della lista concatenata temporanea
-    LogNode* head = NULL; //nodo di testa della lista
-    LogNode* tail = NULL; //nodo di coda della lista
-
+    // Scrivi i log solo per le serre monitorate
     for (int i = 0; i < n; i++) {
-        leggiSensori(&serre[i],i);  // Aggiorna i dati della serra
-        // visualizzazione dei dei dati
-        fprintf(fileSalvataggio, "Serra %d: %s\n", i + 1, serre[i].pianta.nome);
-        fprintf(fileSalvataggio, "  Temperatura: %dÂ°C\n", serre[i].temperatura);
-        fprintf(fileSalvataggio, "  Umidita': %d%%\n", serre[i].umidita);
-        fprintf(fileSalvataggio, "  Luce: %d\n", serre[i].luce);
-        fprintf(fileSalvataggio, "  Umidita' terreno: %d\n", serre[i].umidita_terreno);
-        fprintf(fileSalvataggio, "  Livello acqua: %d\n", serre[i].livello_acqua);
-        fprintf(fileSalvataggio, "  Orario: %02d:%02d\n", serre[i].orario.tm_hour, serre[i].orario.tm_min);
-        fprintf(fileSalvataggio, "  Stagione: %s\n", determinaStagione(serre[i].orario.tm_mon + 1));
-        fprintf(fileSalvataggio, "-----------------------------\n");
+        if (monitorate[i]) {
+            leggiSensori(&serre[i], i);
 
-        LogNode* newNode = (LogNode*)malloc(sizeof(LogNode)); // alloco la memoria dinamicamente per un nuovo nodo di tipo LogNode e ne restituisco il puntatore
-        if (newNode == NULL) { //se il puntatore al nuovo nodo è NULL
-            printf("Errore: Memoria insufficiente per creare il nodo.\n");
-            break;
+            fprintf(fileSalvataggio, "--- MONITORAGGIO: %s ---\n", serre[i].pianta.nome);
+            fprintf(fileSalvataggio, "Temperatura: %dC\n", serre[i].temperatura);
+            fprintf(fileSalvataggio, "Umidita': %d%%\n", serre[i].umidita);
+            fprintf(fileSalvataggio, "Luce: %d\n", serre[i].luce);
+            fprintf(fileSalvataggio, "Umidita' terreno: %d\n", serre[i].umidita_terreno);
+            fprintf(fileSalvataggio, "Livello acqua: %d\n", serre[i].livello_acqua);
+            fprintf(fileSalvataggio, "Orario: %02d:%02d\n", serre[i].orario.tm_hour, serre[i].orario.tm_min);
+            fprintf(fileSalvataggio, "Stagione: %s\n", determinaStagione(serre[i].orario.tm_mon + 1));
+            fprintf(fileSalvataggio, "Tetto: %s\n", serre[i].tetto ? "Aperto" : "Chiuso");
+            fprintf(fileSalvataggio, "%s\n", serre[i].tetto ? "Pioggia non rilevata" : "Pioggia rilevata");
+            fprintf(fileSalvataggio, "[%s] Motore acqua: %s\n", serre[i].pianta.nome, serre[i].motore_acqua ? "ACCESO" : "SPENTO");
+            fprintf(fileSalvataggio, "%s\n", serre[i].livello_acqua < 200 ? "Livello acqua basso! LED ROSSO ON Buzzer ON" : "Livello acqua sufficiente. LED VERDE ON");
+            fprintf(fileSalvataggio, "Ventola raffreddamento: %d (Orario: %02d:%02d)\n", serre[i].ventola_raffreddamento, serre[i].orario.tm_hour, serre[i].orario.tm_min);
+            fprintf(fileSalvataggio, "%s\n", serre[i].luce > 300 ? "Spegni la luce artificiale (Giorno)" : "Accendi la luce artificiale (Notte)");
+            fprintf(fileSalvataggio, "Ventola riciclo aria: %d\n", serre[i].ventola_riciclo);
+
+
+
+            // Salva anche nella lista log in memoria
+            char logBuffer[512];
+
+            snprintf(logBuffer, sizeof(logBuffer),"Serra %d: %s\n" "  Temperatura: %d°C\n" "  Umidità: %d%%\n" "  Luce: %d\n" "  Umidità terreno: %d\n" "  Livello acqua: %d\n"
+            "  Orario: %02d:%02d\n" "  Stagione: %s\n" "  Ventola raffreddamento: %d\n"  "  Ventola riciclo: %d\n" "  LED: %s\n" "  Buzzer: %s\n" "  Tetto: %s\n"
+                "-----------------------------\n",
+                i + 1, serre[i].pianta.nome, serre[i].temperatura, serre[i].umidita,
+                serre[i].luce, serre[i].umidita_terreno, serre[i].livello_acqua,
+                serre[i].orario.tm_hour, serre[i].orario.tm_min,
+                determinaStagione(serre[i].orario.tm_mon + 1),
+                serre[i].ventola_raffreddamento,
+                serre[i].ventola_riciclo,
+                serre[i].livello_acqua < 200 ? "Livello acqua basso! ROSSO ON" : "Livello acqua sufficiente. LED VERDE ON",
+                serre[i].buzzer ? "Acceso" : "Spento",
+                serre[i].tetto ? "Aperto\nPioggia non rilevata" :"Chiuso\nPioggia rilevata" );
+                add_log_entry(logBuffer);
+
         }
-
-        snprintf(newNode->logData, sizeof(newNode->logData),
-                 "Serra %d: %s\n  Temperatura: %dC\n  Umidita': %d%%\n  Luce: %d\n  Umidita' terreno: %d\n  Livello acqua: %d\n  Orario: %02d:%02d\n  Stagione: %s\n-----------------------------\n",
-                 i + 1, serre[i].pianta.nome, serre[i].temperatura, serre[i].umidita, serre[i].luce,
-                 serre[i].umidita_terreno, serre[i].livello_acqua, serre[i].orario.tm_hour,
-                 serre[i].orario.tm_min, determinaStagione(serre[i].orario.tm_mon + 1)); // compongo una stringa con tutti i dati della serra e la memorizza in newNode->logData garantendo di non superare la dim del buffer
-
-        newNode->next = NULL; // il nuovo nodo è l'ultimo della lista
-
-        if (head == NULL) { // se la testa della lista è NULL (vuota)
-            head = tail = newNode; //alla testa assegno coda e alla coda assegno newNode (nodo successivo)
-        } else {
-            tail->next = newNode; //la coda punta al nuovo nodo
-            tail = newNode; // alla coda assegno il nuovo nodo
-        }
-    }
-
-    // Salvataggio dei dati dalla lista concatenata nel file
-    LogNode* current = head; // inizializzo un puntatore corrente al 1 nodo della lista
-    while (current != NULL) { // fin tanto che ci sono nodi nella lista
-        fprintf(fileSalvataggio, "%s", current->logData); //scrivo sul file il contenuto del nodo corrente
-        LogNode* temp = current; // creo un nuovo puntatore a cui assegno i valori di current
-        current = current->next; // punto il nodo corrente al successivo della lista
-        free(temp); // libero la memoria del nodo
     }
 
     fclose(fileSalvataggio);
     printf("Log salvato con successo in %s\n", nomeFile);
 }
-    // ricorsione
-    void salvaLogRicorsivo(SerraDati serre[], int n) {
-    char nomeFile[100];
-    printf("Inserisci il nome del file per lo storico: ");
-    scanf("%99s", nomeFile);
-    //apertura file in modalita' scrittura
-    FILE* fp = fopen(nomeFile, "w");
-    if (!fp) { // se il file non è stato aperto correttamente
-        perror("Errore apertura file");
-        return;
-    }
 
-    // Avvia la scrittura ricorsiva dallo 0
-    salvaStoricoRec(serre, n, 0, fp);
-
-    fclose(fp);
-    printf("Storico salvato con successo in %s\n", nomeFile); // salvataggio storico serra
-}
 
 int main() {
     // inizializzazione dei dati delle serre
@@ -144,6 +130,9 @@ int main() {
         {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 0}},
         {0, 0, 0, 0, 0, {0}, {"Dente di Leone", 710, 930, 0}}
     };
+    bool serre_monitorate[6] = {false};
+
+    init_log_list();
     // generatore valori casuali
     srand(time(NULL));
 
@@ -160,19 +149,47 @@ int main() {
 
         printf("4) Applicare insetticida\n");
         printf("5) Salva il log delle attivita' delle serre\n");
-        printf("6) Esci\n");
+        printf("6) Elimina tutti i log e libera la memoria\n");
+        printf("7) Esci\n");
 
         scelta_categoria = leggiIntero("Scelta categoria: ");
         // sotto vi sono le varie scelte
-        if (scelta_categoria == 6) {
+        if (scelta_categoria == 7) {
             printf("Uscita dal programma.\n");
             return 0;
         }
+        if (scelta_categoria == 6) {
+        // Specifica la directory da cui eliminare i file .txt ricorda doppio slesh
+        const char* dir_path = "D:\\dati_utente\\Desktop\\lab_informatica\\esame_lab_info_serra\\Lab_Serra";
+        // Elimina tutti i file .txt dalla directory specificata
+        eliminaFileTXT(dir_path);
 
+        // Elimina tutti i log dalla lista e libera la memoria
+        delete_all_logs();
+        free_log_list();
+
+        printf("Tutti i log sono stati eliminati e la memoria e' stata liberata.\n");
+        continue;
+    }
         if (scelta_categoria == 5) {
-            salvaLog(serre, 6);  // Salva il log delle serre
-            continue;
-        }
+        // Verifica se almeno una serra è stata monitorata
+        bool almeno_una = false;
+        for (int i = 0; i < 6; i++) {
+            if (serre_monitorate[i]) {
+                almeno_una = true;
+                break;
+            }
+    }
+
+    if (!almeno_una) {
+        printf("nessuna serra monitorata\n");
+    } else {
+        salvaLog(serre, 6, serre_monitorate);  // PASSA i flag di monitoraggio
+    }
+    continue;
+}
+
+
         // ordinamento
         if (scelta_categoria == 3) {
             printf("Come vuoi ordinare le serre?");
@@ -258,7 +275,6 @@ int main() {
             leggiSensori(&serre[serra_index], serra_index);
 
             controlloTemperatura(serre, serra_index);
-
             int temp_iniziale = serre[serra_index].temperatura;
             int umidita_iniziale = serre[serra_index].umidita;
             int luce_iniziale = serre[serra_index].luce;
@@ -276,9 +292,9 @@ int main() {
             printf("Tetto: %s\n", tetto_aperto ? "Aperto \nPioggia non rilevata " : "Chiuso \nPioggia rilevata");
             controllaIrrigazione(serre[serra_index].umidita_terreno, serre[serra_index].pianta, serre[serra_index].orario);
             controllaLivelloAcqua(serre[serra_index].livello_acqua);
-            controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario);
+            controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario, &serre[serra_index]);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
-            controllaVentolaRiciclo(serre[serra_index].orario);
+            controllaVentolaRiciclo(serre[serra_index].orario,&serre[serra_index]);
             printf("\nAttendere 60 secondi per il secondo monitoraggio...\n");
 
             int delta = rand() % 3 - 1; // variazione di +/- 1 dei dati
@@ -313,9 +329,10 @@ int main() {
             printf("Tetto: %s\n", tetto_aperto ? "Aperto \nPioggia non rilevata" : "Chiuso \nPioggia rilevata");
             controllaIrrigazione(serre[serra_index].umidita_terreno, serre[serra_index].pianta, serre[serra_index].orario);
             controllaLivelloAcqua(serre[serra_index].livello_acqua);
-            controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario);
+            controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario, &serre[serra_index]);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
-            controllaVentolaRiciclo(serre[serra_index].orario);
+            controllaVentolaRiciclo(serre[serra_index].orario,&serre[serra_index]);
+            serre_monitorate[serra_index] = true;
 
 
 
