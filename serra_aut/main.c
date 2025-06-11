@@ -10,8 +10,6 @@
 #include "ausiliari/utils.h"
 
 
-
-
 int leggiIntero(const char* prompt) {
     char buffer[100];
     int valore;
@@ -47,7 +45,7 @@ void stampaSerret(SerraDati serre[], int n) { // stampa serra in base alle tempe
     printf("\n");
 }
 
-void salvaLog(SerraDati serre[], int n, bool monitorate[]) {
+void salvaLog(SerraDati serre[], int n, bool monitorate[]) { // salva il log delle sole serre che l'utente sceglie di monitorare
     bool almeno_una = false;
     for (int i = 0; i < n; i++) {
         if (monitorate[i]) {
@@ -61,7 +59,7 @@ void salvaLog(SerraDati serre[], int n, bool monitorate[]) {
         return;
     }
 
-    // Chiedi il nome del file
+    // Chiedo il nome del file
     printf("Inserisci il nome del file con cui vuoi salvare il log: ");
     char nomeFile[100];
     scanf("%99s", nomeFile);
@@ -115,7 +113,7 @@ void salvaLog(SerraDati serre[], int n, bool monitorate[]) {
         }
     }
 
-    fclose(fileSalvataggio);
+    fclose(fileSalvataggio); // chiudo il file
     printf("Log salvato con successo in %s\n", nomeFile);
 }
 
@@ -130,9 +128,9 @@ int main() {
         {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 0}},
         {0, 0, 0, 0, 0, {0}, {"Dente di Leone", 710, 930, 0}}
     };
-    bool serre_monitorate[6] = {false};
+    bool serre_monitorate[6] = {false}; // array booleano che ho inizializzato a false il cui contenuto si aggiorna appena una serra viene monitorata
 
-    init_log_list();
+    init_log_list(); // inizializzazione lista concatenata
     // generatore valori casuali
     srand(time(NULL));
 
@@ -153,13 +151,13 @@ int main() {
         printf("7) Esci\n");
 
         scelta_categoria = leggiIntero("Scelta categoria: ");
-        // sotto vi sono le varie scelte
+        // opzioni di monitoraggio
         if (scelta_categoria == 7) {
             printf("Uscita dal programma.\n");
             return 0;
         }
         if (scelta_categoria == 6) {
-        // Specifica la directory da cui eliminare i file .txt ricorda doppio slesh
+        // Specifica la directory da cui eliminare i file .txt
         const char* dir_path = "D:\\dati_utente\\Desktop\\lab_informatica\\esame_lab_info_serra\\Lab_Serra";
         // Elimina tutti i file .txt dalla directory specificata
         eliminaFileTXT(dir_path);
@@ -181,16 +179,16 @@ int main() {
             }
     }
 
-    if (!almeno_una) {
-        printf("nessuna serra monitorata\n");
-    } else {
-        salvaLog(serre, 6, serre_monitorate);  // PASSA i flag di monitoraggio
-    }
-    continue;
+            if (!almeno_una) { // se non è stata monitorata alcuna serra
+            printf("Nessuna serra monitorata!\n");
+            } else {
+            salvaLog(serre, 6, serre_monitorate);  //salvo nel log le informazioni delle sole serre monitorate
+            }
+            continue;
 }
 
 
-        // ordinamento
+        // opzioni di ordinamento
         if (scelta_categoria == 3) {
             printf("Come vuoi ordinare le serre?");
             scanf("%d",&scelta_ordinamento);
@@ -215,17 +213,17 @@ int main() {
               // Aggiorna i dati delle serre prima dell'ordinamento
                     for (int i = 0; i < 6; i++) {
                         leggiSensori(&serre[i],i); //invoco la funzione leggiSensori passando il riferimento alla serra corrente per leggere dati da sensori
-                        controlloTemperatura(serre, i); // Controlla e correggi la temperatura
+                        controlloTemperatura(serre, i); // Controllo e correggo la temperatura
                         }
 
-                printf("\n--- Prima dell'ordinamento ---\n");
-                stampaSerret(serre, 6);
-                selectiontemp(serre, 6);
-                printf("\n--- Dopo l'ordinamento ---\n");
-                stampaSerret(serre, 6);
-                continue;
-            }
-        }
+                        printf("\n--- Prima dell'ordinamento ---\n");
+                        stampaSerret(serre, 6);
+                        selectiontemp(serre, 6);
+                        printf("\n--- Dopo l'ordinamento ---\n");
+                        stampaSerret(serre, 6);
+                        continue;
+                        }
+}
 
         // applicazione dell'insetticida
        if (scelta_categoria == 4) {
@@ -234,17 +232,15 @@ int main() {
 
            continue; // salto al prossimo ciclo
         }
-
-
-
+        // se la scelta della categoria risulta essere non valida stampo un messaggio "scelta non valida"
 
         if (scelta_categoria < 1 || scelta_categoria > 2) {
             printf("Scelta non valida! Riprova.\n");
             continue;
         }
         // selezione elementi della serra
-        int start = (scelta_categoria == 1) ? 0 : 3; // se scelgo categoria 1 ho 3 possibilità di scelta Basilico....
-        int end = (scelta_categoria == 1) ? 3 : 6;
+        int start = (scelta_categoria == 1) ? 0 : 3; // se scelgo categoria 1 ho 3 possibilità di scelta: Basilico...
+        int end = (scelta_categoria == 1) ? 3 : 6; // se scelgo categoria 2 ho 3 possibilità di scelta: tulipano, margherita...
 
         // Scegli una serra specifica
         printf("\nSeleziona una serra:\n");
@@ -265,7 +261,7 @@ int main() {
 
 
 
-       // Monitorare la serra selezionata
+       // monitoraggio della serra selezionata
         int serra_index = start + (scelta_serra - 1);
         char uscita_monitoraggio[4];
 
@@ -280,7 +276,7 @@ int main() {
             int luce_iniziale = serre[serra_index].luce;
             int umidita_terreno_iniziale = serre[serra_index].umidita_terreno;
             int livello_acqua_iniziale = serre[serra_index].livello_acqua;
-            // Dati iniziali
+            // Dati iniziali di monitoraggio
             printf("\n--- MONITORAGGIO: %s ---\n", serre[serra_index].pianta.nome);
             printf("Temperatura: %dC\n", temp_iniziale);
             printf("Umidita': %d%%\n", umidita_iniziale);
@@ -307,7 +303,7 @@ int main() {
 
             //monitoraggio dopo 1 minuto
 
-            sleep(60); //aspetto 60 secondi
+            sleep(60); //aspetto 60 secondi per effettuare il monitoraggio successivo
             // monitoraggio serra dopo 60 secondi
             printf("\n--- MONITORAGGIO DOPO 60 SECONDI: %s ---\n", serre[serra_index].pianta.nome);
             printf("Temperatura: %dC\n", temp_iniziale);
