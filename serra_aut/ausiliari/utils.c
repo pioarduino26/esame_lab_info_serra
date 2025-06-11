@@ -9,17 +9,17 @@ void eliminaFileTXT(const char* dir_path) {
     DIR *dir;
     struct dirent *entry;
 
-    // Apre la directory specificata
+    // Apro la directory specificata
     dir = opendir(dir_path);
     if (dir == NULL) {
         printf("Errore nell'apertura della directory: %s\n", dir_path);
-        perror("Errore: "); // Stampa il motivo dell'errore
+        perror("Errore: "); // Stampa il motivo dell'errore ad esempio: "file non trovato"
         return;
     }
 
     // Scansione dei file nella directory
     while ((entry = readdir(dir)) != NULL) {
-        // Controlla se il file ha estensione .txt
+        // Controllo se il file ha estensione .txt
         if (strlen(entry->d_name) > 4 && strcmp(entry->d_name + strlen(entry->d_name) - 4, ".txt") == 0) {
             // Crea il percorso completo del file
             char file_path[1024];

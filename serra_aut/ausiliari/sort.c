@@ -11,7 +11,7 @@
 #define MIN_VALUE 724
 #define MAX_VALUE 1000
 
-
+// utilizzo un algoritmo di ordinamento di tipo selectionSort per ordinare le serre per umidità del terreno
 
 void selectionSort(SerraDati serre[], int n) {
     for (int i = 0; i < n - 1; i++) {
@@ -27,6 +27,7 @@ void selectionSort(SerraDati serre[], int n) {
         serre[min_idx] = temp;
     }
 }
+// utilizzo un algoritmo di ordinamento di tipo selectionSort per ordinare le serre per temperatura
 
 void selectiontemp(SerraDati serre[], int n) {
     for (int i = 0; i < n - 1; i++) {

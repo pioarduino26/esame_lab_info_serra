@@ -24,7 +24,7 @@ typedef struct {
     int ventola_riciclo;
     int ventola_raffreddamento;
     int led;
-    int buzzer;               // Stato buzzer (0=spento, 1= acceso)
+    int buzzer;
     int tetto;
     int motore_acqua;
 } SerraDati;

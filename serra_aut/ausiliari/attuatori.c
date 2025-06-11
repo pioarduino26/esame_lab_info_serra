@@ -102,6 +102,7 @@ void controllaIrrigazione(int umidita_terreno, Pianta pianta, struct tm orario) 
         printf("[%s] Motore acqua: ACCESO (Stagione: %s)\n", pianta.nome, stagione);
     }
 }
+// effettuo il controllo sulla presenza o meno di luce
 void controllaIlluminazione(int luce, struct tm orario) {
     if (orario.tm_hour >= 20 || orario.tm_hour < 6) {
         // Se e' notte, accendi la luce se necessario
@@ -114,7 +115,7 @@ void controllaIlluminazione(int luce, struct tm orario) {
         printf("Spegni la luce artificiale (Giorno)\n");
     }
 }
-
+// controllo livello dell'acqua e azioni sugli attuatori
 void controllaLivelloAcqua(int livello_acqua) {
     if (livello_acqua < 200) {
         printf("Livello acqua basso! LED ROSSO ON, Buzzer ON\n");
