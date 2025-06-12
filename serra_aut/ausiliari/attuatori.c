@@ -13,34 +13,38 @@ void inizializzaGeneratoreCasuale() {
     srand(time(NULL));
 }
 
-//Implementazione di rilevaPioggia
+// Implementazione di rilevaPioggia
 int rilevaPioggia() {
-    // Simulazione casuale: 30% di probabilità di pioggia
-    int pioggia = rand() % 10 < 3 ? 1 : 0;
+    time_t t = time(NULL);
+    struct tm *orario = localtime(&t);
+    const char* stagione = determinaStagione(orario->tm_mon + 1);
 
-    if (pioggia) {
-        ultima_pioggia = time(NULL); // Aggiorna l'orario dell'ultima pioggia
+    int probabilita_pioggia;
+
+    if (strcmp(stagione, "Estate") == 0) {
+        probabilita_pioggia = 8;  // Solo 8% di probabilità di pioggia
+    } else if (strcmp(stagione, "Inverno") == 0) {
+        probabilita_pioggia = 70;
+    } else {
+        probabilita_pioggia = 40; // Primavera e Autunno
     }
 
-    return pioggia;
+    int random = rand() % 100;
+    return random < probabilita_pioggia; // 1 = pioggia, 0 = no
 }
-//Implementazione di controllaTetto
 // Implementazione aggiornata di controllaTetto
 void controllaTetto(SerraDati *serra) {
     int pioggia = rilevaPioggia();
+    const char* stagione = determinaStagione(serra->orario.tm_mon + 1);
 
     if (pioggia) {
-        printf("Pioggia rilevata: CHIUSURA automatica del tetto.\n");
-        tetto_aperto = 0; // Tetto chiuso
+        tetto_aperto = 0;
     } else {
-        printf("Nessuna pioggia: APERTURA automatica del tetto.\n");
-        tetto_aperto = 1; // Tetto aperto
+        tetto_aperto = 1;
     }
 
-    // Aggiorna lo stato del tetto nella struttura SerraDati
     serra->tetto = tetto_aperto;
 }
-
 
 // Implementazione aggiornata di controllaVentolaRaffreddamento
 void controllaVentolaRaffreddamento(int temperatura, struct tm orario,SerraDati *serra) {
@@ -123,4 +127,3 @@ void controllaLivelloAcqua(int livello_acqua) {
         printf("Livello acqua sufficiente. LED VERDE ON\n");
     }
 }
-
