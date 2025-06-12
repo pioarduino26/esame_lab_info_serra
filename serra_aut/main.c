@@ -158,7 +158,7 @@ int main() {
         }
         if (scelta_categoria == 6) {
         // Specifica la directory da cui eliminare i file .txt
-        const char* dir_path = "C:\\Users\\torne\\Desktop\\laboratorio_informatica\\esame_lab_info_serra\\Lab_Serra";
+        const char* dir_path = "D:\\dati_utente\\Desktop\\lab_informatica\\esame_lab_info_serra\\Lab_Serra";
         // Elimina tutti i file .txt dalla directory specificata
         eliminaFileTXT(dir_path);
 
@@ -269,6 +269,7 @@ int main() {
         // monitoraggio delle serre
         do{
             leggiSensori(&serre[serra_index], serra_index);
+            controllaTetto(&serre[serra_index]);
 
             controlloTemperatura(serre, serra_index);
             int temp_iniziale = serre[serra_index].temperatura;
