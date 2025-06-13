@@ -10,12 +10,13 @@
 #include "ausiliari/utils.h"
 
 
-int leggiIntero(const char* prompt) {
+int leggiIntero(const char* prompt) { //definisco la funzione leggiIntero che ha come parametro una stringa prompt (contenente il messaggio da mostrare all'utente in caso di input invalido)
     char buffer[100];
-    int valore;
-    while (1) {
-        printf("%s", prompt);
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+    int valore; //Variabile dove verrà memorizzato il numero intero inserito dall’utente, una volta validato
+    while (1) { // chiedo un input all'utente fino a quando non ne mette uno valido
+        printf("%s", prompt); // chiedo all'utente di inserire un valore
+
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) { //leggo quello che inserisce l'utente e lo memorizzo in un buffer
             continue; // errore di input
         }
 
@@ -334,11 +335,26 @@ int main() {
 
 
             // chiedo all'utente se vuole tornare al menù principale
+            do {
             printf("\nVuoi tornare al menu principale? (si/no): ");
-            scanf("%3s", uscita_monitoraggio);
+            if (scanf("%3s", uscita_monitoraggio) != 1) {
+                // svuota il buffer su input non valido
+                int c; while ((c = getchar()) != '\n' && c != EOF);
+                printf("Input non valido, inserisci un carattere valido\n");
+                continue;
+            }
+            // se è “si” o “no” esci dal loop, altrimenti ripeti
+            if (strcmp(uscita_monitoraggio, "si") == 0 ||
+                strcmp(uscita_monitoraggio, "no") == 0) {
+                break;
+            }
+            printf("Input non valido, inserisci un carattere valido\n");
+            } while (1);
+
 
             }
-    while (strcmp(uscita_monitoraggio, "no") == 0); // no= il monitoraggio continua fin quando l'utente non dice "si"
+            while (strcmp(uscita_monitoraggio, "no") == 0); // no= il monitoraggio continua fin quando l'utente non dice "si"
+
         }
 
     return 0;
