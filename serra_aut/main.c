@@ -9,13 +9,12 @@
 #include "ausiliari/terna.h"
 #include "ausiliari/utils.h"
 
-
+//controlla validità input
 int leggiIntero(const char* prompt) { //definisco la funzione leggiIntero che ha come parametro una stringa prompt (contenente il messaggio da mostrare all'utente in caso di input invalido)
     char buffer[100];
     int valore; //Variabile dove verrà memorizzato il numero intero inserito dall’utente, una volta validato
     while (1) { // chiedo un input all'utente fino a quando non ne mette uno valido
         printf("%s", prompt); // chiedo all'utente di inserire un valore
-
         if (fgets(buffer, sizeof(buffer), stdin) == NULL) { //leggo quello che inserisce l'utente e lo memorizzo in un buffer
             continue; // errore di input
         }
@@ -129,6 +128,7 @@ int main() {
         {0, 0, 0, 0, 0, {0}, {"Tulipano", 730, 940, 0}},
         {0, 0, 0, 0, 0, {0}, {"Dente di Leone", 710, 930, 0}}
     };
+
     bool serre_monitorate[6] = {false}; // array booleano che ho inizializzato a false il cui contenuto si aggiorna appena una serra viene monitorata
 
     init_log_list(); // inizializzazione lista concatenata
@@ -143,12 +143,12 @@ int main() {
 
         printf("\n Seleziona la categoria di serre:\n");
         printf("1) Piante Commestibili (Basilico, Peperoncino, Cipolla)\n");
-        printf("2) Piante da Abbellimento (Margherite, Tulipani, Dente di Leone)\n");
+        printf("2) Piante da Abbellimento (Margherita, Tulipano, Dente di Leone)\n");
         printf("3) Ordinamento... \n"); //selection sort
 
         printf("4) Applicare insetticida\n");
         printf("5) Salva il log delle attivita' delle serre\n");
-        printf("6) Elimina tutti i log e libera la memoria\n");
+        printf("6) Gestisci eliminazione log e memoria\n");
         printf("7) Esci\n");
 
         scelta_categoria = leggiIntero("Scelta categoria: ");
@@ -158,18 +158,42 @@ int main() {
             return 0;
         }
         if (scelta_categoria == 6) {
-        // Specifica la directory da cui eliminare i file .txt
-        const char* dir_path = "D:\\dati_utente\\Desktop\\lab_informatica\\esame_lab_info_serra\\Lab_Serra";
-        // Elimina tutti i file .txt dalla directory specificata
-        eliminaFileTXT(dir_path);
+            int sub;
+            // Stampa menu sottostante
+            do {
+                printf("\n6) Gestisci eliminazione log e memoria:\n");
+                printf("   1) Elimina tutti i file di log e libera la memoria\n");
+                printf("   2) Elimina un singolo file di log\n");
+                sub = leggiIntero("  Seleziona (1-2): ");
+                if (sub < 1 || sub > 2) {
+                    printf("  Scelta non valida, inserisci un valore valido (1 o 2)\n");
+              }
+            } while (sub < 1 || sub > 2);
 
-        // Elimina tutti i log dalla lista e libera la memoria
-        delete_all_logs();
-        free_log_list();
+            if (sub == 1) {
+                // Mantieni la tua funzione che elimina tutti i .txt
+                const char* dir_path = "C:\\Users\\torne\\Desktop\\laboratorio_informatica\\esame_lab_info_serra\\Lab_Serra";
+                eliminaFileTXT(dir_path);
 
-        printf("Tutti i log sono stati eliminati e la memoria e' stata liberata.\n");
+                // Mantieni il tuo free dei log in memoria
+                delete_all_logs();
+                free_log_list();
+
+                printf("Tutti i log sono stati eliminati e la memoria e' stata liberata.\n");
+            }
+           else { // sub == 2
+                char nomeFile[1024];
+                printf("  Inserisci il nome del file da eliminare (con estensione): ");
+                scanf("%1023s", nomeFile);
+                if (remove(nomeFile) == 0) {
+                    printf("  File \"%s\" eliminato con successo.\n", nomeFile);
+                } else {
+                    perror("  Errore durante l'eliminazione del file");
+                }
+            }
         continue;
     }
+
         if (scelta_categoria == 5) {
         // Verifica se almeno una serra è stata monitorata
         bool almeno_una = false;
@@ -271,13 +295,14 @@ int main() {
         do{
             leggiSensori(&serre[serra_index], serra_index);
             controllaTetto(&serre[serra_index]);
-
             controlloTemperatura(serre, serra_index);
             int temp_iniziale = serre[serra_index].temperatura;
             int umidita_iniziale = serre[serra_index].umidita;
             int luce_iniziale = serre[serra_index].luce;
             int umidita_terreno_iniziale = serre[serra_index].umidita_terreno;
             int livello_acqua_iniziale = serre[serra_index].livello_acqua;
+            int stato_tetto=serre[serra_index].tetto;
+
             // Dati iniziali di monitoraggio
             printf("\n--- MONITORAGGIO: %s ---\n", serre[serra_index].pianta.nome);
             printf("Temperatura: %dC\n", temp_iniziale);
@@ -293,6 +318,8 @@ int main() {
             controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario, &serre[serra_index]);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
             controllaVentolaRiciclo(serre[serra_index].orario,&serre[serra_index]);
+
+
             printf("\nAttendere 60 secondi per il secondo monitoraggio...\n");
 
             int delta = rand() % 3 - 1; // variazione di +/- 1 dei dati
@@ -331,10 +358,6 @@ int main() {
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
             controllaVentolaRiciclo(serre[serra_index].orario,&serre[serra_index]);
             serre_monitorate[serra_index] = true;
-
-
-
-            // chiedo all'utente se vuole tornare al menù principale
             do {
             printf("\nVuoi tornare al menu principale? (si/no): ");
             if (scanf("%3s", uscita_monitoraggio) != 1) {
@@ -351,10 +374,7 @@ int main() {
             printf("Input non valido, inserisci un carattere valido\n");
             } while (1);
 
-
-            }
-            while (strcmp(uscita_monitoraggio, "no") == 0); // no= il monitoraggio continua fin quando l'utente non dice "si"
-
+    }while (strcmp(uscita_monitoraggio, "no") == 0); // no= il monitoraggio continua fin quando l'utente non dice "si"
         }
 
     return 0;
