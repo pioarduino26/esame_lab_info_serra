@@ -73,7 +73,7 @@ void salvaLog(SerraDati serre[], int n, bool monitorate[]) { // salva il log del
     // Scrivi i log solo per le serre monitorate
     for (int i = 0; i < n; i++) {
         if (monitorate[i]) {
-            leggiSensori(&serre[i], i);
+           // leggiSensori(&serre[i], i);
 
             fprintf(fileSalvataggio, "--- MONITORAGGIO: %s ---\n", serre[i].pianta.nome);
             fprintf(fileSalvataggio, "Temperatura: %dC\n", serre[i].temperatura);
@@ -88,10 +88,16 @@ void salvaLog(SerraDati serre[], int n, bool monitorate[]) { // salva il log del
             fprintf(fileSalvataggio, "[%s] Motore acqua: %s\n", serre[i].pianta.nome, serre[i].motore_acqua ? "ACCESO" : "SPENTO");
             fprintf(fileSalvataggio, "%s\n", serre[i].livello_acqua < 200 ? "Livello acqua basso! LED ROSSO ON Buzzer ON" : "Livello acqua sufficiente. LED VERDE ON");
             fprintf(fileSalvataggio, "Ventola raffreddamento: %d (Orario: %02d:%02d)\n", serre[i].ventola_raffreddamento, serre[i].orario.tm_hour, serre[i].orario.tm_min);
-            fprintf(fileSalvataggio, "%s\n", serre[i].luce > 300 ? "Spegni la luce artificiale (Giorno)" : "Accendi la luce artificiale (Notte)");
+            if (serre[i].orario.tm_hour >= 20 || serre[i].orario.tm_hour < 6) {
+                if (serre[i].luce < 300) {
+                    fprintf(fileSalvataggio, "Accendi la luce artificiale (Notte)\n");
+                        }
+                    }
+                    else {
+                    fprintf(fileSalvataggio, "Spegni la luce artificiale (Giorno)\n");
+            }
+
             fprintf(fileSalvataggio, "Ventola riciclo aria: %d\n", serre[i].ventola_riciclo);
-
-
 
             // Salva anche nella lista log in memoria
             char logBuffer[512];
@@ -172,7 +178,7 @@ int main() {
 
             if (sub == 1) {
                 // Mantieni la tua funzione che elimina tutti i .txt
-                const char* dir_path = "C:\\Users\\torne\\Desktop\\laboratorio_informatica\\esame_lab_info_serra\\Lab_Serra";
+                const char* dir_path = "D:\\dati_utente\\Desktop\\lab_informatica\\esame_lab_info_serra\\Lab_Serra";
                 eliminaFileTXT(dir_path);
 
                 // Mantieni il tuo free dei log in memoria
@@ -356,6 +362,7 @@ int main() {
             controllaLivelloAcqua(serre[serra_index].livello_acqua);
             controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario, &serre[serra_index]);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
+
             controllaVentolaRiciclo(serre[serra_index].orario,&serre[serra_index]);
             serre_monitorate[serra_index] = true;
             do {
