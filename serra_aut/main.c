@@ -177,11 +177,11 @@ int main() {
             } while (sub < 1 || sub > 2);
 
             if (sub == 1) {
-                // Mantieni la tua funzione che elimina tutti i .txt
-                const char* dir_path = "D:\\dati_utente\\Desktop\\lab_informatica\\esame_lab_info_serra\\Lab_Serra";
+                // Funzione che elimina tutti i .txt
+                const char* dir_path = "C:\\Users\\torne\\Desktop\\laboratorio_informatica\\esame_lab_info_serra\\Lab_Serra";
                 eliminaFileTXT(dir_path);
 
-                // Mantieni il tuo free dei log in memoria
+                // Liberazione dei log in memoria
                 delete_all_logs();
                 free_log_list();
 
@@ -194,7 +194,7 @@ int main() {
                 if (remove(nomeFile) == 0) {
                     printf("  File \"%s\" eliminato con successo.\n", nomeFile);
                 } else {
-                    perror("  Errore durante l'eliminazione del file");
+                    perror(" Errore durante l'eliminazione del file");
                 }
             }
         continue;
@@ -270,8 +270,8 @@ int main() {
             continue;
         }
         // selezione elementi della serra
-        int start = (scelta_categoria == 1) ? 0 : 3; // se scelgo categoria 1 ho 3 possibilità di scelta: Basilico...
-        int end = (scelta_categoria == 1) ? 3 : 6; // se scelgo categoria 2 ho 3 possibilità di scelta: tulipano, margherita...
+        int start = (scelta_categoria == 1) ? 0 : 3; // se scelgo categoria 1 ho 3 possibilità di scelta: Basilico, peperoncino, cipolla
+        int end = (scelta_categoria == 1) ? 3 : 6; // se scelgo categoria 2 ho 3 possibilità di scelta: tulipano, margherita, dente di leone
 
         // Scegli una serra specifica
         printf("\nSeleziona una serra:\n");
@@ -362,22 +362,21 @@ int main() {
             controllaLivelloAcqua(serre[serra_index].livello_acqua);
             controllaVentolaRaffreddamento(serre[serra_index].temperatura, serre[serra_index].orario, &serre[serra_index]);
             controllaIlluminazione(serre[serra_index].luce, serre[serra_index].orario);
-
             controllaVentolaRiciclo(serre[serra_index].orario,&serre[serra_index]);
             serre_monitorate[serra_index] = true;
             do {
             printf("\nVuoi tornare al menu principale? (si/no): ");
             if (scanf("%3s", uscita_monitoraggio) != 1) {
-                // svuota il buffer su input non valido
+                // svuoto il buffer su input non valido
                 int c; while ((c = getchar()) != '\n' && c != EOF);
                 printf("Input non valido, inserisci un carattere valido\n");
                 continue;
             }
-            // se è “si” o “no” esci dal loop, altrimenti ripeti
+            // se è “si” esco dal loop, altrimenti continuo a monitorare la serra
             if (strcmp(uscita_monitoraggio, "si") == 0 ||
                 strcmp(uscita_monitoraggio, "no") == 0) {
                 break;
-            }
+            } //controllo sulla validità dell'input
             printf("Input non valido, inserisci un carattere valido\n");
             } while (1);
 
